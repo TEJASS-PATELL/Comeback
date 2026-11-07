@@ -4,14 +4,18 @@ const API_BASE_URL = RAW_BASE_URL.replace(/\/+$/, '')
 
 const DEFAULT_STATE_KEY = 'default'
 
-// --- Legacy / LocalStorage Functions (App.jsx errors hatane ke liye) ---
+// --- Legacy / LocalStorage Functions ---
 const LOCAL_STORAGE_KEY = 'hunter_app_state_legacy'
 
-export function readLegacyState() {
+export function readLegacyState(defaultQuestData = {}) {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_KEY)
     if (!raw) return null
-    return JSON.parse(raw)
+    const parsed = JSON.parse(raw)
+    return {
+      data: parsed.data || parsed,
+      questData: parsed.questData || defaultQuestData
+    }
   } catch (e) {
     console.error('Failed to read legacy local state', e)
     return null
@@ -43,16 +47,28 @@ export async function loadCloudState(key = DEFAULT_STATE_KEY) {
     throw new Error(`Cloud load failed with status ${response.status}`)
   }
 
-  return response.json()
+  const result = await response.json()
+  // Ensure it returns an object with data and questData
+  return {
+    data: result.data || null,
+    questData: result.questData || null,
+    updatedAt: result.updatedAt || null
+  }
 }
 
-export async function saveCloudState(data, key = DEFAULT_STATE_KEY) {
+export async function saveCloudState(payload, key = DEFAULT_STATE_KEY) {
+  const bodyData = {
+    key,
+    data: payload.data || payload,
+    questData: payload.questData || {}
+  }
+
   const response = await fetch(`${API_BASE_URL}/api/state`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ key, data }),
+    body: JSON.stringify(bodyData),
   })
 
   if (!response.ok) {

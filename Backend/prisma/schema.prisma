@@ -9,9 +9,10 @@ datasource db {
 }
 
 model AppState {
-  clientId  String   @id @db.Uuid
-  data      Json
-  questData Json
+  id        String   @id @default(uuid())
+  key       String   @unique @default("default")
+  data      Json     // <-- Aapka poora app state yahan save hoga
+  questData Json?    // <-- Aapka quest-related data yahan safe rahega
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

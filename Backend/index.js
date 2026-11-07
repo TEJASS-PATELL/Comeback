@@ -21,6 +21,7 @@ app.get('/api/health', async (_req, res) => {
   }
 })
 
+// Load Cloud State (data aur questData dono return karega)
 app.get('/api/state', async (req, res, next) => {
   try {
     const key = String(req.query.key || DEFAULT_STATE_KEY)
@@ -29,6 +30,7 @@ app.get('/api/state', async (req, res, next) => {
     res.json({
       key,
       data: record?.data ?? null,
+      questData: record?.questData ?? null,
       updatedAt: record?.updatedAt ?? null,
     })
   } catch (error) {
@@ -36,10 +38,12 @@ app.get('/api/state', async (req, res, next) => {
   }
 })
 
+// Save Cloud State (data aur questData dono save karega)
 app.put('/api/state', async (req, res, next) => {
   try {
     const key = String(req.body?.key || DEFAULT_STATE_KEY)
     const data = req.body?.data
+    const questData = req.body?.questData ?? {}
 
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
       res.status(400).json({ error: 'Request body must include an object payload in `data`.' })
@@ -48,8 +52,8 @@ app.put('/api/state', async (req, res, next) => {
 
     const record = await prisma.appState.upsert({
       where: { key },
-      update: { data },
-      create: { key, data },
+      update: { data, questData },
+      create: { key, data, questData },
     })
 
     res.json({
