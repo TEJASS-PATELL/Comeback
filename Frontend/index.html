@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+
+  <title>Comeback 90</title>
+  <meta name="application-name" content="Comeback 90" />
+  <meta name="description"
+    content="Comeback 90: a private 90-day routine, habit and reset tracker. Your data stays on your device." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="color-scheme" content="light" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Comeback 90" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0A0A'/%3E%3Cpath d='M 51 32 A 19 19 0 1 1 32 13' fill='none' stroke='%23FFFFFF' stroke-width='4.5' stroke-linecap='round'/%3E%3Cpath d='M 27 37 L 42 22 M 32 22 H 42 V 32' fill='none' stroke='%23FFFFFF' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='21' cy='43' r='3' fill='%23D9381E'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans+Code:wght@400..600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans+Code:wght@400..600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" />
+  </noscript>
+
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <div id="splash" role="status" aria-live="polite" aria-label="Loading Comeback 90">
+    <div class="sp-wrap">
+      <div class="sp-bar" aria-hidden="true">
+        <i></i>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    Comeback 90 needs JavaScript to run. Please enable it in your browser.
+  </noscript>
+
+  <script>
+    (() => {
+      const splash = document.getElementById("splash");
+      const root = document.getElementById("root");
+
+      if (!splash || !root) return;
+
+      const started = Date.now();
+      const MIN_SHOW = 350;
+      let finished = false;
+      let observer;
+
+      function hideSplash() {
+        if (finished) return;
+        finished = true;
+
+        if (observer) observer.disconnect();
+
+        const fontsReady = document.fonts?.ready
+          ? Promise.race([
+            document.fonts.ready,
+            new Promise((resolve) => setTimeout(resolve, 1200)),
+          ])
+          : Promise.resolve();
+
+        fontsReady.then(() => {
+          const wait = Math.max(
+            0,
+            MIN_SHOW - (Date.now() - started)
+          );
+
+          setTimeout(() => {
+            requestAnimationFrame(() => {
+              splash.classList.add("sp-hide");
+
+              setTimeout(() => splash.remove(), 350);
+            });
+          }, wait);
+        });
+      }
+
+      if ("MutationObserver" in window) {
+        observer = new MutationObserver(() => {
+          if (root.childElementCount > 0) {
+            hideSplash();
+          }
+        });
+
+        observer.observe(root, {
+          childList: true,
+        });
+      }
+
+      if (root.childElementCount > 0) {
+        hideSplash();
+      }
+    })();
+  </script>
+
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
