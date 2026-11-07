@@ -4,6 +4,29 @@ const API_BASE_URL = RAW_BASE_URL.replace(/\/+$/, '')
 
 const DEFAULT_STATE_KEY = 'default'
 
+// --- Legacy / LocalStorage Functions (App.jsx errors hatane ke liye) ---
+const LOCAL_STORAGE_KEY = 'hunter_app_state_legacy'
+
+export function readLegacyState() {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if (!raw) return null
+    return JSON.parse(raw)
+  } catch (e) {
+    console.error('Failed to read legacy local state', e)
+    return null
+  }
+}
+
+export function clearLegacyState() {
+  try {
+    localStorage.removeItem(LOCAL_STORAGE_KEY)
+  } catch (e) {
+    console.error('Failed to clear legacy local state', e)
+  }
+}
+
+// --- Cloud API Functions ---
 export async function checkApiHealth() {
   const response = await fetch(`${API_BASE_URL}/api/health`)
   if (!response.ok) {
