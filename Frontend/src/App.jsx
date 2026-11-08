@@ -1407,15 +1407,18 @@ export default function App() {
   const resetCount = (data.resetLogs || []).length + (data.urges || []).length;
   const currentDayNum = Math.min(getDayIndex(p.startDate, today), 90);
 
-if (!cloudReady) {
+  if (!cloudReady) {
     return (
       <main className="main-area cloud-loading">
-        <div className="content-wrap" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '16px' }}>
+        <div className="content-wrap" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
           {!connectionError ? (
-            <>
-              <Loader2 className="animate-spin" size={36} style={{ animation: 'spin 1s linear infinite' }} />
-              <p style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>Loading data...</p>
-            </>
+            <div id="splash" role="status" aria-live="polite" aria-label="Loading Comeback 90">
+              <div className="sp-wrap">
+                <div className="sp-bar" aria-hidden="true">
+                  <i />
+                </div>
+              </div>
+            </div>
           ) : (
             <>
               <h1>Can't connect to the database</h1>
