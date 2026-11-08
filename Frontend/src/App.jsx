@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { Moon, Sun } from "lucide-react";
+import { Loader2, Moon, Sun } from "lucide-react";
 import "./App.css";
 import {
   SCHEMA_VERSION,
