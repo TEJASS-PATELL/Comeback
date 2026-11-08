@@ -123,22 +123,23 @@ function createInitialQuestData() {
 }
 
 function mergeSavedData(saved) {
+  const s = saved || {};
   const defaults = createInitialData();
   return {
     ...defaults,
-    ...saved,
+    ...s,
     version: SCHEMA_VERSION,
     profile: {
       ...defaults.profile,
-      ...(saved.profile || {}),
+      ...(s.profile || {}),
       targets: {
         ...defaults.profile.targets,
-        ...(saved.profile?.targets || {}),
+        ...(s.profile?.targets || {}),
       },
     },
-    days: { ...defaults.days, ...(saved.days || {}) },
-    groom: { ...defaults.groom, ...(saved.groom || {}) },
-    settings: { ...defaults.settings, ...(saved.settings || {}) },
+    days: { ...defaults.days, ...(s.days || {}) },
+    groom: { ...defaults.groom, ...(s.groom || {}) },
+    settings: { ...defaults.settings, ...(s.settings || {}) },
   };
 }
 
@@ -230,8 +231,9 @@ export default function App() {
     setConnectionError("");
     try {
       const savedState = await loadCloudState();
-      const state = savedState || readLegacyState(createInitialQuestData());
-      if (state) {
+      const hasCloudData = Boolean(savedState && savedState.data);
+      const state = hasCloudData ? savedState : readLegacyState(createInitialQuestData());
+      if (state && state.data) {
         setData(mergeSavedData(state.data));
         setQuestData(mergeQuestData(state.questData));
       } else {
@@ -239,7 +241,7 @@ export default function App() {
         setQuestData(createInitialQuestData());
       }
       setCloudSyncEnabled(true);
-      setCloudStatus(savedState ? "saved" : "saving");
+      setCloudStatus(hasCloudData ? "saved" : "saving");
       setCloudReady(true);
     } catch (error) {
       console.error("Could not load saved data from the cloud:", error);
@@ -339,8 +341,8 @@ export default function App() {
       const saved = questData;
       const rewardHistory =
         saved.dailyWinRewards &&
-        typeof saved.dailyWinRewards === "object" &&
-        !Array.isArray(saved.dailyWinRewards)
+          typeof saved.dailyWinRewards === "object" &&
+          !Array.isArray(saved.dailyWinRewards)
           ? saved.dailyWinRewards
           : {};
       const todayRewards = Array.isArray(rewardHistory[today])
@@ -1405,13 +1407,18 @@ export default function App() {
   const resetCount = (data.resetLogs || []).length + (data.urges || []).length;
   const currentDayNum = Math.min(getDayIndex(p.startDate, today), 90);
 
-  if (!cloudReady) {
+if (!cloudReady) {
     return (
       <main className="main-area cloud-loading">
-        <div className="content-wrap">
-          <h1>{connectionError ? "Can't connect to the database" : "Loading your saved data…"}</h1>
-          {connectionError && (
+        <div className="content-wrap" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '16px' }}>
+          {!connectionError ? (
             <>
+              <Loader2 className="animate-spin" size={36} style={{ animation: 'spin 1s linear infinite' }} />
+              <p style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>Loading data...</p>
+            </>
+          ) : (
+            <>
+              <h1>Can't connect to the database</h1>
               <p>{connectionError}</p>
               <Button kind="primary" onClick={connectToCloud}>
                 Retry connection
@@ -1557,7 +1564,7 @@ export default function App() {
           {data.badDayMode && (
             <div
               className="row-between jsx-0b70baa6"
-              
+
             >
               <span className="status-pill peach-pill">
                 Bad Day Mode Active · Just finish 3 basics today (Sunlight, Phone
@@ -1651,13 +1658,13 @@ export default function App() {
             />
             <div
               className="habit-list jsx-cfef4a83"
-              
+
             >
               {commandItems.map((item) => (
                 <div
                   key={item.id}
                   className="habit-row jsx-74fa97c2"
-                  
+
                   onClick={item.run}
                 >
                   <span className="status-pill complete">{item.icon}</span>
@@ -1699,3 +1706,4 @@ export default function App() {
     </div>
   );
 }
+

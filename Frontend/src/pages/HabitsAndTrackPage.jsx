@@ -1467,6 +1467,4 @@ function HabitsAndTrackPage({
   );
 }
 
-<div className="record-grid"></div>
-
 export { HabitsAndTrackPage };
