@@ -445,10 +445,6 @@ function HunterRankPage({ game, setGame, today, notify }) {
       <Card className="hunter-reward-card">
         <div className="section-head">
           <div>
-            <span className="hunter-reward-eyebrow">
-              <Gift size={15} aria-hidden="true" />
-              MILESTONE REWARD
-            </span>
             <h2>
               {rewardUnlocked
                 ? `Level ${nextRewardLevel} reached`
