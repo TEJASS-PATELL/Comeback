@@ -310,6 +310,152 @@ const BAREFOOT_RETENTION_HABITS = [
   },
 ];
 
+/* ============================================================================
+   NEW HAIR GROWTH, ANTI-DANDRUFF, ANTI-HAIRFALL & THICKNESS CONSTANTS
+   ============================================================================ */
+
+const HAIR_WEEKLY_SCHEDULE = [
+  {
+    id: "hw-keto",
+    title: "Mon · Wed · Fri: Ketoconazole 2% + ZPTO 1% Wash (5-Min Contact Rule)",
+    sub: "Gile scalp par jhaag bana kar 5 minute chhodna zaroori hai taaki Malassezia fungus khatam ho. Fir thande/normal paani se dho lein.",
+  },
+  {
+    id: "hw-no-overnight-oil",
+    title: "Zero Overnight Heavy Oiling Rule (Stops Fungal Dandruff Feeding)",
+    sub: "Dandruff fungus tel (sebum/oil) khata hai. Raat bhar tel kabhi mat lagao—sirf wash se 30–45 min pehle light Rosemary + Jojoba/Coconut oil lagao.",
+  },
+  {
+    id: "hw-mild",
+    title: "Tue · Sat: Mild Sulfate-Free Wash (After Sweat / Workout)",
+    sub: "Pasina aur dhool jado ko block karte hain. Non-medicated din par gentle sulfate-free shampoo se 60 sec wash karo.",
+  },
+  {
+    id: "hw-nightly",
+    title: "Every Night: 4-Min Pinch Massage + Oil-Free Rosemary / 3% Redensyl Serum",
+    sub: "Dry scalp par 4 min fingertips se scalp skin ko move karo aur 1 ml water-based hair growth serum/Rosemary water lagao.",
+  },
+  {
+    id: "hw-helmet",
+    title: "Daily Protection: Cool Water Rinse + Cotton Bandana Inside Helmet",
+    sub: "Garam paani se baal kabhi mat dho. Helmet ke andar clean cotton handkerchief/balaclava pehno aur gile baalon me kanghi mat karo.",
+  },
+];
+
+const HAIR_GROWTH_STEPS = [
+  {
+    id: "hg-1",
+    name: "1. 4-Min Subgaleal Pinch & Stretch Scalp Massage (Thickness Booster)",
+    durationSec: 240,
+    frequency: "Roz Sham ya Raat (Dry Clean Scalp Par)",
+    reps: "4 mins continuous (Fingertips only, no nails)",
+    gainTag: "+15–20% Hair Shaft Thickness (Dermal Papilla Stretch)",
+    instruction:
+      "Ungliyon ko baalon ke andar daal kar scalp ki chamdi (skin) ko haddi ke upar aage-piche hilaon aur halka pinch karo (ragadna nahi hai, skin move honi chahiye). Crown, temples aur hairline par 4 minute tak karne se blood flow 2x hota hai aur patle baal mote (thick) bante hain.",
+  },
+  {
+    id: "hg-2",
+    name: "2. Ketoconazole 2% Antifungal 5-Minute Contact Timer",
+    durationSec: 300,
+    frequency: "Hafte mein 2–3 baar (Mon, Wed, Fri)",
+    reps: "5 Mins Lather Hold on Scalp",
+    gainTag: "Eliminates Dandruff & Fungal Hairfall in 14–21 Days",
+    instruction:
+      "90% log Ketoconazole shampoo laga kar 30 second me dho dete hain isliye dandruff wapas aa jata hai. Shampoo ko scalp par laga kar ye 5-minute timer chalu karo. 5 min baad thande paani se rinse karo.",
+  },
+  {
+    id: "hg-3",
+    name: "3. Nightly Oil-Free Growth Activator (Rosemary Water / 3% Redensyl-Capixyl)",
+    durationSec: 90,
+    frequency: "Roz Raat Sone Se Pehle",
+    reps: "1 ml Dropper or 6–8 Sprays on Roots",
+    gainTag: "Extends Anagen (Length Growth) Phase",
+    instruction:
+      "Kyunki oil dandruff badhata hai, raat ko water-based 3% Redensyl + Capixyl + Procapil (RCP) serum ya ghar par ubaala hua Rosemary + Clove water spray jado me lagao aur 60 sec tap-massage karo. Ye dormant follicles ko jagata hai.",
+  },
+  {
+    id: "hg-4",
+    name: "4. Pre-Wash 40-Min Rosemary + Carrier Oil Conditioning (No Overnight Oil)",
+    durationSec: 120,
+    frequency: "Hafte mein 2 baar (Shampoo se 40 min pehle)",
+    reps: "1 tbsp Jojoba/Argan/Light Coconut Oil + 4 drops Rosemary Oil",
+    gainTag: "Protects Hair Shaft Without Feeding Dandruff",
+    instruction:
+      "Shampoo karne se theek 35–45 minute pehle baalon ki length aur roots par halka Rosemary blend lagao. 45 min baad shampoo se dho lo—isse baal soft, shiny aur lambe honge bina scalp pores block kiye.",
+  },
+  {
+    id: "hg-5",
+    name: "5. Zero-Breakage Drying & Wide-Tooth Wooden Combing Protocol",
+    durationSec: 60,
+    frequency: "Har Hair Wash Ke Baad",
+    reps: "Cotton T-Shirt Dab-Dry + Comb at 80% Dry",
+    gainTag: "Stops 70% Mechanical Hair Breakage",
+    instruction:
+      "Gile baal sabse kamzor hote hain. Towel se jhatak kar ya ragad kar kabhi mat sukhao—purani soft cotton T-shirt se halka dabao. Jab baal 80% sukh jayein tabhi wide-tooth wooden comb se neeche se upar suljhao.",
+  },
+  {
+    id: "hg-6",
+    name: "6. Neck & Occipital Artery De-Tensioning Stretch (Scalp Blood Flow)",
+    durationSec: 60,
+    frequency: "Roz Dopahar aur Raat",
+    reps: "30 sec / side neck release + 10 deep breaths",
+    gainTag: "Opens Blood & Oxygen Supply to Top of Scalp",
+    instruction:
+      "Tight gardan aur trapezius muscles scalp tak jane wali khoon ki nason (occipital & temporal arteries) ko dabate hain. Kandhe neeche rakh kar gardan ko 30 sec daayein aur 30 sec baayein tilt karo taaki scalp tak poora nutrition pahunche.",
+  },
+];
+
+const HAIR_DIET_ITEMS = [
+  {
+    id: "hrd-morning",
+    meal: "7:00 AM · Natural DHT-Blocker & Ferritin Shot",
+    title: "1 Raw Amla (or Juice) + 1 tsp Pumpkin Seeds + 1 tsp Flaxseeds + 5 Soaked Black Raisins",
+    nutrients: "Zinc · Beta-Sitosterol (DHT Blocker) · Iron · Vitamin C",
+    detail:
+      "Kaddu ke beej (Pumpkin seeds) natural DHT blocker hain jo hairline patli hone se rokte hain. Amla + Kali Kishmish khoon me Ferritin (Iron storage) badha kar hairfall jad se rokte hain.",
+  },
+  {
+    id: "hrd-breakfast",
+    meal: "8:30 AM · Keratin, Biotin & B12 Power Breakfast",
+    title: "3 Whole Boiled Eggs + 7–8 Raw Kadi Patta (Curry Leaves) + 150g Dahi + 2 Walnuts",
+    nutrients: "~24g Keratin Protein · High Biotin (B7) · L-Cysteine · Vitamin B12",
+    detail:
+      "22 saal ki veg low-protein diet se jo B12 aur Cysteine kam hua tha, 3 Boiled Eggs use sabse tezi se bhar kar patle baalon ko mota (thick) banate hain. Kadi patta baalon ko kaala aur strong rakhta hai.",
+  },
+  {
+    id: "hrd-lunch",
+    meal: "1:30 PM · L-Lysine & Iron-Lock Desi Lunch",
+    title: "1.5 Katori Gaadhi Dal + Palak/Methi Sabzi + 100g Paneer + ½ Lemon Squeezed on Dal",
+    nutrients: "L-Lysine + Non-Heme Iron + Folate (3x Absorption with Lemon)",
+    detail:
+      "Bina L-Lysine (Dal/Paneer) aur Vitamin C (Nimbu) ke body Palak/Dal ka Iron absorb nahi kar paati. Dal par nimbu nichod kar khane se hair roots ko 3 guna zyada oxygen aur iron milta hai.",
+  },
+  {
+    id: "hrd-snack",
+    meal: "5:00 PM · Melanin & Follicle Mineral Snack",
+    title: "1 Mutthi Bhuna Chana + 1 tsp Black/White Til (Sesame) + 2 Boiled Egg Whites",
+    nutrients: "Copper · Zinc · Selenium · Clean Albumin Protein",
+    detail:
+      "Til (Sesame) aur Chana mein Copper aur Zinc hota hai jo baalon ki jadon ko majboot karta hai aur patle/bejaan baalon mein shine lata hai.",
+  },
+  {
+    id: "hrd-dinner",
+    meal: "8:30 PM · Sulfur Disulfide-Bond Dinner",
+    title: "2 Whole Eggs Curry/Bhurji (or 45g Soya / 100g Paneer) + 2 Roti + Green Sabzi",
+    nutrients: "Methionine · Cysteine · Vitamin E · Iron",
+    detail:
+      "Baalon ki motaai aur lambaai Sulfur amino acids (Methionine & Cysteine) ke disulfide bonds se banti hai—roz 5 total eggs (3 AM + 2 PM) aapka daily Keratin target 100% poora karte hain.",
+  },
+  {
+    id: "hrd-night",
+    meal: "10:30 PM · Anagen Phase Vitamin D3 & Sleep Sync",
+    title: "250 ml Warm Haldi Milk + 15 Min Morning Sunlight (or Weekly D3 Check)",
+    nutrients: "Vitamin D3 · Calcium · Melatonin (7.5–8 hrs Deep Sleep)",
+    detail:
+      "Vitamin D3 kam hone par hair follicles 'resting phase' mein fass jate hain. Dhoop/D3 aur raat ki 8 ghante ki neend naye baal ugane (Anagen initiation) ke liye mandatory hai.",
+  },
+];
+
 function parseAvgRupeeRange(str = "") {
   const nums = String(str)
     .replace(/,/g, "")
@@ -323,6 +469,7 @@ function LooksPage({ data, setData, notify }) {
   const [subTab, setSubTab] = useState("face"); // face | height | hair | skin | groom
   const [doneRoutineSteps, setDoneRoutineSteps] = useState({});
   const [doneHeightSteps, setDoneHeightSteps] = useState({});
+  const [doneHairSteps, setDoneHairSteps] = useState({});
   const [budgetTier, setBudgetTier] = useState("low"); // low | mid
   const [shapeQuiz, setShapeQuiz] = useState({
     lengthVsWidth: "balanced",
@@ -337,6 +484,15 @@ function LooksPage({ data, setData, notify }) {
     thoracicRound: "high", // low | high (Zone 3: Upper Back & Ribcage)
     neckSlouch: "yes", // no | yes (Zone 4: Cervical Tech-Neck)
     untrainedHistory: "yes", // yes | no (Zone 5: Knee-Hamstring & Foot Arch + Catch-up Nutrition)
+  });
+
+  /* Hairfall, Dandruff & Thickness Diagnostic State */
+  const [hairAudit, setHairAudit] = useState({
+    dandruffType: "oilyFlakes", // none | dryFlakes | oilyFlakes
+    dailyShedding: "high", // normal | moderate | high
+    oilingHabit: "overnight", // none | prewash | overnight
+    dietHistory: "lowProtein", // lowProtein | optimal
+    waterAndHelmet: "yes", // yes | no
   });
 
   const today = todayISO();
@@ -531,23 +687,16 @@ function LooksPage({ data, setData, notify }) {
 
   /* 100% Barefoot 5-Zone Height Calculation (Without Shoes or Slippers) */
   const heightPotential = useMemo(() => {
-    // Zone 1: 23 Intervertebral Discs Decompression & Cartilage Swelling
     let discGain = 0.8;
     if (heightAudit.sittingHours === "high") discGain = 1.5;
     else if (heightAudit.sittingHours === "med") discGain = 1.1;
 
-    // Zone 2: Anterior Pelvic Tilt (APT) & Lumbar Uncoiling
     let aptGain = 0.4;
     if (heightAudit.aptLevel === "high") aptGain = 1.2;
     else if (heightAudit.aptLevel === "moderate") aptGain = 0.8;
 
-    // Zone 3: Thoracic Kyphosis & Ribcage Elevation
     const thoracicGain = heightAudit.thoracicRound === "high" ? 0.8 : 0.4;
-
-    // Zone 4: Cervical Tech-Neck & Suboccipital Alignment
     const neckGain = heightAudit.neckSlouch === "yes" ? 0.6 : 0.2;
-
-    // Zone 5: Untrained Knee/Hamstring Extension + Foot Arch + Catch-up Nutrition
     const untrainedGain = heightAudit.untrainedHistory === "yes" ? 0.4 : 0.1;
 
     const totalReclaimCm = +(
@@ -610,6 +759,89 @@ function LooksPage({ data, setData, notify }) {
       notify(`Barefoot Height logged: Morning ${mCm} cm · Evening ${eCm} cm`);
     }
   };
+
+  /* Hair Protocol, Weekly Schedule & Hair Diet Sync */
+  const isHairRoutineDoneToday = groom.hairDoneDate === today;
+  const todayHairSchedule =
+    groom.hairSchedDate === today ? groom.hairSchedule || {} : {};
+  const todayHairDiet =
+    groom.hairDietDate === today ? groom.hairDiet || {} : {};
+
+  const toggleHairScheduleItem = (id) => {
+    const next = { ...todayHairSchedule, [id]: !todayHairSchedule[id] };
+    setGroom({
+      hairSchedDate: today,
+      hairSchedule: next,
+    });
+  };
+
+  const toggleHairDietItem = (id) => {
+    const next = { ...todayHairDiet, [id]: !todayHairDiet[id] };
+    setGroom({
+      hairDietDate: today,
+      hairDiet: next,
+    });
+    const count = Object.values(next).filter(Boolean).length;
+    if (count === HAIR_DIET_ITEMS.length && typeof notify === "function") {
+      notify("All 6 Hair Keratin, Biotin & DHT-Blocker meals logged today!");
+    }
+  };
+
+  const toggleHairStepDone = (stepId) => {
+    const next = { ...doneHairSteps, [stepId]: !doneHairSteps[stepId] };
+    setDoneHairSteps(next);
+    const doneCount = Object.values(next).filter(Boolean).length;
+    if (doneCount >= 3) {
+      markFullHairRoutineToday(true, next);
+    }
+  };
+
+  const markFullHairRoutineToday = (val = true, customMap = null) => {
+    const nextMap = customMap || {};
+    if (val && !customMap) {
+      HAIR_GROWTH_STEPS.forEach((s) => {
+        nextMap[s.id] = true;
+      });
+    }
+    setDoneHairSteps(nextMap);
+    setGroom({
+      hairDoneDate: val ? today : "",
+    });
+    if (val && typeof notify === "function") {
+      notify("Hair Thickness & Anti-Dandruff Routine logged for today!");
+    }
+  };
+
+  /* Hair Diagnostic & Recovery Calculator */
+  const hairRecoveryPlan = useMemo(() => {
+    let dandruffClearDays = 14;
+    let ketoFreq = "2x / week (Mon & Thu)";
+    if (hairAudit.dandruffType === "oilyFlakes") {
+      dandruffClearDays = 21;
+      ketoFreq = "3x / week (Mon, Wed, Fri · 5-min hold)";
+    } else if (hairAudit.dandruffType === "none") {
+      dandruffClearDays = 7;
+      ketoFreq = "1x / week (Preventive scalp reset)";
+    }
+
+    let sheddingReductionPct = 65;
+    if (hairAudit.oilingHabit === "overnight") sheddingReductionPct += 15;
+    if (hairAudit.dietHistory === "lowProtein") sheddingReductionPct += 10;
+
+    let thicknessGainPct = 18;
+    if (hairAudit.dietHistory === "lowProtein") thicknessGainPct = 28;
+
+    const growthRateCmMonth =
+      hairAudit.dietHistory === "lowProtein" ? "1.4 to 1.6 cm/mo" : "1.3 cm/mo";
+
+    return {
+      dandruffClearDays,
+      ketoFreq,
+      sheddingReductionPct: Math.min(92, sheddingReductionPct),
+      thicknessGainPct,
+      growthRateCmMonth,
+    };
+  }, [hairAudit]);
 
   /* Face Shape Quiz Recommender */
   const applyRecommendedFaceShape = () => {
@@ -728,12 +960,14 @@ function LooksPage({ data, setData, notify }) {
 
   const completedDietCount = Object.values(todayHeightDiet).filter(Boolean).length;
   const completedSessionCount = Object.values(todayHeightSessions).filter(Boolean).length;
+  const completedHairDietCount = Object.values(todayHairDiet).filter(Boolean).length;
+  const completedHairSchedCount = Object.values(todayHairSchedule).filter(Boolean).length;
 
   return (
     <>
       <Heading
-        title="Looks, barefoot height uncoiling & style"
-        description="100% Barefoot 5-Zone Kinetic Uncoiling (173 → 177–177.5 cm target without shoes/slippers), Egg + Collagen disc nutrition, facial posture, skin clarity, and well-fitted clothes."
+        title="Looks, barefoot height uncoiling, hair density & style"
+        description="100% Barefoot 5-Zone Kinetic Uncoiling (173 → 177–177.5 cm without shoes), Anti-Dandruff & Hair Thickness Protocol, Egg + Collagen nutrition, skin clarity, and well-fitted clothes."
       />
 
       <div className="stats-grid jsx-2f23af6b">
@@ -754,10 +988,14 @@ function LooksPage({ data, setData, notify }) {
           color="blue"
         />
         <Stat
-          icon="☀"
-          label="AM + PM Skincare"
-          value={todayDayObj.c?.skincare ? "+5 pts ✓" : "In Progress"}
-          detail={`Profile: ${SKIN_ROUTINES[selectedSkinType].label}`}
+          icon="✂"
+          label="Hair & Dandruff Protocol"
+          value={
+            isHairRoutineDoneToday
+              ? "Done ✓"
+              : `+${hairRecoveryPlan.thicknessGainPct}% Thickness`
+          }
+          detail={`Hair Diet: ${completedHairDietCount}/${HAIR_DIET_ITEMS.length} · Wash: ${hairRecoveryPlan.ketoFreq}`}
           color="peach"
         />
         <Stat
@@ -773,7 +1011,7 @@ function LooksPage({ data, setData, notify }) {
         {[
           ["face", "Face & Posture Routine"],
           ["height", "Barefoot Height (173 → 177+ cm)"],
-          ["hair", "Hair & Beard Guide"],
+          ["hair", "Hair Growth, Dandruff & Beard"],
           ["skin", "Skin & Tan Control"],
           ["groom", "Wardrobe & Quick Wins"],
         ].map(([k, lbl]) => (
@@ -961,16 +1199,19 @@ function LooksPage({ data, setData, notify }) {
               <p>
                 Kyunki aapne 22 saal tak kabhi gym, running ya sports nahi khela
                 aur bachpan me low-protein diet rahi, aapke शरीर ke{" "}
-                <strong>5 Barefoot Kinetic Zones</strong>—<strong>1) 23 Spinal Discs (+1.5 cm)</strong>,{" "}
+                <strong>5 Barefoot Kinetic Zones</strong>—
+                <strong>1) 23 Spinal Discs (+1.5 cm)</strong>,{" "}
                 <strong>2) APT Pelvic Tilt (+1.2 cm)</strong>,{" "}
                 <strong>3) Thoracic Upper-Back Curve (+0.8 cm)</strong>,{" "}
                 <strong>4) Forward Neck (+0.6 cm)</strong>, aur{" "}
-                <strong>5) Knee-Hamstring &amp; Foot Arch (+0.4 cm)</strong>—mein{" "}
-                kul milakar <strong>+3.6 se +4.5 cm asli Barefoot Height</strong>{" "}
-                dabi ho sakti hai. Agle 90–120 din roz{" "}
+                <strong>5) Knee-Hamstring &amp; Foot Arch (+0.4 cm)</strong>
+                —mein kul milakar{" "}
+                <strong>+3.6 se +4.5 cm asli Barefoot Height</strong> dabi ho
+                sakti hai. Agle 90–120 din roz{" "}
                 <strong>4 Micro-Sessions + 5 Whole Eggs/Collagen Diet</strong>{" "}
                 follow karke aap bina jooto ke{" "}
-                <strong>176.6 se 177.5 cm (Barefoot)</strong> tak pahunch sakte ho.
+                <strong>176.6 se 177.5 cm (Barefoot)</strong> tak pahunch sakte
+                ho.
               </p>
             </div>
           </div>
@@ -987,8 +1228,8 @@ function LooksPage({ data, setData, notify }) {
                   {HEIGHT_DAILY_SESSIONS.length} Sessions Done Today)
                 </h2>
                 <p>
-                  Nange pair 177+ cm lock karne ke liye spine ko din bhar
-                  shrink hone se bachana zaroori hai. Ye 4 sessions roz tick karo:
+                  Nange pair 177+ cm lock karne ke liye spine ko din bhar shrink
+                  hone se bachana zaroori hai. Ye 4 sessions roz tick karo:
                 </p>
               </div>
               <span className="status-pill complete">
@@ -1410,10 +1651,354 @@ function LooksPage({ data, setData, notify }) {
       )}
 
       {/* =====================================================================
-          TAB 3: HAIR & BEARD GUIDE + FACE SHAPE FINDER & HAIRCUT TRACKER
+          TAB 3 (UPGRADED): HAIR GROWTH, ANTI-DANDRUFF, ANTI-HAIRFALL & BEARD
           ===================================================================== */}
       {subTab === "hair" && (
         <div className="stack-col">
+          <div className="intro-callout">
+            <div className="callout-icon">✂</div>
+            <div>
+              <strong>
+                Zero-Dandruff, Zero-Hairfall &amp; Thick Hair Scientific Blueprint
+              </strong>
+              <p>
+                <strong>1) Dandruff Ka Sach:</strong> Dandruff dryness se nahi,{" "}
+                <em>Malassezia</em> fungus se hota hai jo aapke scalp ke tel
+                (oil) ko khata hai—isliye dandruff mein{" "}
+                <strong>raat bhar tel (overnight oiling) 100% band karo</strong>{" "}
+                aur <strong>Ketoconazole 2% + ZPTO shampoo (5-min hold)</strong>{" "}
+                use karo.{" "}
+                <strong>2) Baal Mota &amp; Lamba Karne Ka Sach:</strong> 22 saal
+                low-protein rehne se baal patle ho jate hain. Roz{" "}
+                <strong>3–5 Boiled Eggs (Biotin + L-Cysteine)</strong>,{" "}
+                <strong>Amla + Pumpkin Seeds (DHT Blocker)</strong>, aur{" "}
+                <strong>4-Min Subgaleal Pinch Massage</strong> se 60–90 din mein
+                hairfall ruk kar baal mote aur ghane (dense) hote hain.
+              </p>
+            </div>
+          </div>
+
+          {/* WEEKLY WASH & ANTI-DANDRUFF SCHEDULE TRACKER */}
+          <Card>
+            <div className="section-head">
+              <div>
+                <div className="eyebrow">
+                  WEEKLY ANTI-DANDRUFF &amp; FOLLICLE CARE SCHEDULE
+                </div>
+                <h2>
+                  5 Golden Hair Rules ({completedHairSchedCount}/
+                  {HAIR_WEEKLY_SCHEDULE.length} Checked Today)
+                </h2>
+                <p>
+                  Follow this exact wash, oiling, and helmet hygiene schedule to
+                  kill dandruff fungus and stop root inflammation:
+                </p>
+              </div>
+              <span className="status-pill complete">
+                {hairRecoveryPlan.ketoFreq}
+              </span>
+            </div>
+
+            <div className="form-grid jsx-4bb90035">
+              {HAIR_WEEKLY_SCHEDULE.map((item) => {
+                const checked = Boolean(todayHairSchedule[item.id]);
+                return (
+                  <div
+                    key={item.id}
+                    className={`habit-row ${checked ? "checked" : ""}`}
+                  >
+                    <button
+                      type="button"
+                      className={`check-circle ${checked ? "checked" : ""}`}
+                      onClick={() => toggleHairScheduleItem(item.id)}
+                    >
+                      {checked ? "✓" : ""}
+                    </button>
+                    <div className="habit-info">
+                      <strong>{item.title}</strong>
+                      <small>{item.sub}</small>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+
+          <div className="dashboard-grid">
+            {/* LEFT: 6-STEP HAIR THICKNESS, MASSAGE & KETOCONAZOLE TIMER PROTOCOL */}
+            <Card>
+              <div className="section-head">
+                <div>
+                  <div className="eyebrow">
+                    6-STEP SCALP ACTIVATION &amp; ANTI-DANDRUFF PROTOCOL
+                  </div>
+                  <h2>Daily 4-Min Pinch Massage, 5-Min Keto Wash &amp; Serum</h2>
+                  <p>
+                    Use the built-in timers below (especially for the 4-min
+                    Dermal Papilla massage and 5-min Ketoconazole contact wash).
+                  </p>
+                </div>
+                <Button
+                  kind={isHairRoutineDoneToday ? "secondary" : "primary"}
+                  onClick={() =>
+                    markFullHairRoutineToday(!isHairRoutineDoneToday)
+                  }
+                >
+                  {isHairRoutineDoneToday
+                    ? "✓ Logged Today"
+                    : "✓ Complete Hair Routine"}
+                </Button>
+              </div>
+
+              <div className="stack-col jsx-4bb90035">
+                {HAIR_GROWTH_STEPS.map((s) => {
+                  const stepDone =
+                    Boolean(doneHairSteps[s.id]) || isHairRoutineDoneToday;
+                  return (
+                    <div
+                      key={s.id}
+                      className={`routine-step-box ${
+                        stepDone ? "routine-step-complete" : ""
+                      }`}
+                    >
+                      <div className="row-between">
+                        <div className="jsx-f265ed37">
+                          <button
+                            type="button"
+                            className={`check-circle ${
+                              stepDone ? "checked" : ""
+                            }`}
+                            onClick={() => toggleHairStepDone(s.id)}
+                          >
+                            {stepDone ? "✓" : ""}
+                          </button>
+                          <strong>{s.name}</strong>
+                        </div>
+                        <span className="status-pill complete">
+                          {s.gainTag}
+                        </span>
+                      </div>
+
+                      <small className="muted-text">
+                        Prescription: <strong>{s.reps}</strong> · Frequency:{" "}
+                        <strong>{s.frequency}</strong>
+                      </small>
+                      <p>{s.instruction}</p>
+
+                      <CountdownTimer
+                        defaultSeconds={s.durationSec}
+                        label={s.name}
+                        onComplete={() => {
+                          toggleHairStepDone(s.id);
+                          if (typeof notify === "function") {
+                            notify(`${s.name} completed!`);
+                          }
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+
+            {/* RIGHT: HAIR DIAGNOSTIC CALCULATOR + DAILY EGG/KERATIN DIET TRACKER */}
+            <div className="stack-col">
+              <Card>
+                <div className="eyebrow">
+                  DANDRUFF, HAIRFALL &amp; THICKNESS DIAGNOSTIC
+                </div>
+                <h2>
+                  Root-Cause Analyzer ({hairRecoveryPlan.dandruffClearDays}-Day
+                  Dandruff Clear · +{hairRecoveryPlan.thicknessGainPct}% Shaft
+                  Thickness)
+                </h2>
+                <p>
+                  Select your current scalp condition and habits below to get
+                  your exact recovery timeline:
+                </p>
+
+                <div className="stack-col jsx-4bb90035">
+                  <Field label="1. Aapke scalp par kis tarah ka dandruff aata hai?">
+                    <select
+                      value={hairAudit.dandruffType}
+                      onChange={(e) =>
+                        setHairAudit({
+                          ...hairAudit,
+                          dandruffType: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="oilyFlakes">
+                        Oily, sticky/yellowish flakes + itching (Fungal Seborrheic)
+                      </option>
+                      <option value="dryFlakes">
+                        Small white powdery flakes (Mild Dandruff / Dry Scalp)
+                      </option>
+                      <option value="none">
+                        No visible flakes (Focus on thickness &amp; length)
+                      </option>
+                    </select>
+                  </Field>
+
+                  <Field label="2. Nahate ya kanghi karte waqt roz kitne baal tut-te/girte hain?">
+                    <select
+                      value={hairAudit.dailyShedding}
+                      onChange={(e) =>
+                        setHairAudit({
+                          ...hairAudit,
+                          dailyShedding: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="high">
+                        High shedding (50–100+ hairs on pillow/comb · Telogen Effluvium)
+                      </option>
+                      <option value="moderate">
+                        Moderate shedding (30–50 hairs/day + thin hair strands)
+                      </option>
+                      <option value="normal">
+                        Normal (&lt;25 hairs/day · want thicker density)
+                      </option>
+                    </select>
+                  </Field>
+
+                  <Field label="3. Abhi aap sir mein tel (hair oil) kaise lagate ho?">
+                    <select
+                      value={hairAudit.oilingHabit}
+                      onChange={(e) =>
+                        setHairAudit({
+                          ...hairAudit,
+                          oilingHabit: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="overnight">
+                        Overnight / Din bhar tel laga kar chhod deta hun (Feeds Dandruff!)
+                      </option>
+                      <option value="prewash">
+                        Only 30–45 mins before shampoo (Optimal)
+                      </option>
+                      <option value="none">
+                        No oiling (Use water-based serum)
+                      </option>
+                    </select>
+                  </Field>
+
+                  <Field label="4. Pichle 5–10 saal ki Diet History (Protein, B12, Iron)?">
+                    <select
+                      value={hairAudit.dietHistory}
+                      onChange={(e) =>
+                        setHairAudit({
+                          ...hairAudit,
+                          dietHistory: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="lowProtein">
+                        Mostly Roti + Dal-Chawal (Started Eggs at age 22 · High catch-up potential)
+                      </option>
+                      <option value="optimal">
+                        Already eating 90g+ protein + Eggs/Paneer daily
+                      </option>
+                    </select>
+                  </Field>
+
+                  <Field label="5. Kya aap roz Helmet pehente ho ya Borewell/Hard water se sir dhote ho?">
+                    <select
+                      value={hairAudit.waterAndHelmet}
+                      onChange={(e) =>
+                        setHairAudit({
+                          ...hairAudit,
+                          waterAndHelmet: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="yes">
+                        Yes, daily helmet sweat / hard water (Use cotton bandana + RO final rinse)
+                      </option>
+                      <option value="no">
+                        No, soft water &amp; minimal helmet friction
+                      </option>
+                    </select>
+                  </Field>
+                </div>
+
+                <div className="mini-stat-row jsx-99bf9265">
+                  <div>
+                    <span className="mini-stat-number">
+                      {hairRecoveryPlan.dandruffClearDays} Days
+                    </span>
+                    <span>100% Dandruff Clearance</span>
+                  </div>
+                  <div>
+                    <span className="mini-stat-number">
+                      -{hairRecoveryPlan.sheddingReductionPct}%
+                    </span>
+                    <span>Hairfall Reduction (6–8 Wks)</span>
+                  </div>
+                  <div>
+                    <span className="mini-stat-number">
+                      +{hairRecoveryPlan.thicknessGainPct}%
+                    </span>
+                    <span>
+                      Shaft Thickness ({hairRecoveryPlan.growthRateCmMonth})
+                    </span>
+                  </div>
+                </div>
+              </Card>
+
+              {/* DAILY KERATIN, BIOTIN & DHT-BLOCKER DIET TRACKER */}
+              <Card>
+                <div className="section-head">
+                  <div>
+                    <div className="eyebrow">
+                      ROZ KYA KHANA HAI? (KERATIN, BIOTIN &amp; IRON DIET)
+                    </div>
+                    <h2>
+                      Daily Hair Growth &amp; Thickness Diet (
+                      {completedHairDietCount}/{HAIR_DIET_ITEMS.length} Meals)
+                    </h2>
+                    <p>
+                      Baal 90% Keratin protein hote hain. Patle baalon ko mota,
+                      kaala aur lamba karne ke liye roz ye 6 cheezein khao:
+                    </p>
+                  </div>
+                  <span className="status-pill complete">
+                    Eggs + Seeds + Amla
+                  </span>
+                </div>
+
+                <div className="habit-list jsx-4bb90035">
+                  {HAIR_DIET_ITEMS.map((item) => {
+                    const checked = Boolean(todayHairDiet[item.id]);
+                    return (
+                      <div
+                        key={item.id}
+                        className={`habit-row ${checked ? "checked" : ""}`}
+                      >
+                        <button
+                          type="button"
+                          className={`check-circle ${checked ? "checked" : ""}`}
+                          onClick={() => toggleHairDietItem(item.id)}
+                        >
+                          {checked ? "✓" : ""}
+                        </button>
+                        <div className="habit-info">
+                          <small className="muted-text">
+                            <strong>{item.meal}</strong> · {item.nutrients}
+                          </small>
+                          <strong>{item.title}</strong>
+                          <small>{item.detail}</small>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* EXISTING FACE SHAPE SELECTOR, QUIZ, BARBER CHEAT-SHEET & 28-DAY TRIM TRACKER */}
           <div className="dashboard-grid">
             <Card>
               <div className="section-head">
