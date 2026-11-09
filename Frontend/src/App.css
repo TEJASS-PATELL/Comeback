@@ -1481,6 +1481,8 @@ input[type="checkbox"] {
   overflow-wrap: break-word;
 }
 
+
+
 .habit-info strong,
 .task-main strong {
   font-size: .9375rem;
@@ -7214,3 +7216,5 @@ body {
     transition: none !important;
   }
 }
+
+

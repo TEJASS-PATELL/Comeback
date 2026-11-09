@@ -105,79 +105,208 @@ const FIT_RULES_CHECKLIST = [
   },
 ];
 
-const HEIGHT_DECOMPRESSION_STEPS = [
+const HEIGHT_DAILY_SESSIONS = [
   {
-    id: "ht-1",
-    name: "1. Bar Dead Hang / Doorframe Spinal Traction",
-    durationSec: 45,
-    reps: "3 sets × 30–45 sec",
-    gainTag: "+0.6 to 1.0 cm (Disc Decompression)",
-    instruction:
-      "Pull-up bar ya majboot दरवाजे ke frame ko pakad kar shoulders ko kaanon ke paas dhila chhod do. Lower back aur hips ko hawa mein bhaari latakne do (feet halka zameen ko touch kar sakte hain). Gravity aapke 23 spinal discs ke beech space kholegi.",
+    id: "sess-am",
+    title: "Session 1: Morning 177 cm Barefoot Lock (Subah uthte hi · 8–10 mins)",
+    sub: "Bar Dead Hang (3×40s) + Wall Crown Alignment (3×30s) + Glute-Pelvic Lock (3×15) + 500ml Lemon/Amla Water.",
   },
   {
-    id: "ht-2",
-    name: "2. Wall Crown-to-Ceiling Reach (Thoracic & Neck Unfold)",
-    durationSec: 60,
-    reps: "3 sets × 20 sec hold",
-    gainTag: "+0.5 to 0.8 cm (Fixes Tech-Neck)",
-    instruction:
-      "Deewar se heels, glutes aur upper back chipkao. Chin ko andar tuck karo (double chin jaisa) aur apne sir ke sabse upari hisse (crown) ko chhat (ceiling) ki taraf 1 inch upar kheench kar hold karo.",
+    id: "sess-mid",
+    title: "Session 2: Mid-Day Anti-Shrinkage Reset (Dopahar 4 hr sitting ke baad · 4 mins)",
+    sub: "Doorframe Traction (2×35s) + Standing APT Pelvic Tuck (3×25s) to prevent daytime disc loss.",
   },
   {
-    id: "ht-3",
-    name: "3. APT Pelvic Tuck + Kneeling Hip-Flexor Release",
-    durationSec: 60,
-    reps: "45 sec / side",
-    gainTag: "+0.5 to 1.0 cm (Straightens Lumbar Curve)",
-    instruction:
-      "Lambi sitting se pelvis aage tilt ho jata hai (APT) jisse kamar ki S-curve dab kar height chura leti hai. Belt buckle ko naabhi ki taraf upar tuck karo, glutes 80% squeeze karo aur front hip flexor ko lamba stretch do.",
+    id: "sess-pm",
+    title: "Session 3: Evening 5-Zone Deep Uncoiling (Sham workout time · 20–22 mins)",
+    sub: "All 10 Barefoot Steps: Dead Hangs, Couch/Psoas APT Release, Towel Thoracic Fulcrum, Y-T-W & Masai Jumps.",
   },
   {
-    id: "ht-4",
-    name: "4. Cobra Thoracic Extension to Downward Dog Wave",
-    durationSec: 60,
-    reps: "8 slow waves (60 sec)",
-    gainTag: "+0.4 cm (Upper Back Extension)",
-    instruction:
-      "Glutes tight rakh kar chest ko upar uthao (Sphinx/Baby Cobra—sirf upper back kholo, lower back pinch mat karo) aur fir hips upar push karke Downward Dog mein spine ko lamba stretch do.",
-  },
-  {
-    id: "ht-5",
-    name: "5. Nighttime Disc Rehydration (Pillow Under Knees)",
-    durationSec: 90,
-    reps: "Every night before sleep",
-    gainTag: "Locks Morning Height Gain",
-    instruction:
-      "Raat ko sote waqt spinal discs paani absorb karke wapas phoolti hain. Peeth ke bal let kar ghutno ke neeche 1 takiya (pillow) lagao aur 3L+ daily hydration rakho taaki subah 1.5 cm full disc height mile.",
+    id: "sess-night",
+    title: "Session 4: Night Disc Super-Swelling (Sone se theek pehle · 5 mins)",
+    sub: "90/90 Calves-on-Chair Traction (5 min) + Pillow under knees all night for maximum overnight disc expansion.",
   },
 ];
 
-const VISUAL_HEIGHT_HACKS = [
+const HEIGHT_DECOMPRESSION_STEPS = [
   {
-    id: "vh-sole",
-    title: "Wear chunky minimal sneakers with a 3 to 3.5 cm outsole",
-    sub: "White/neutral court sneakers, running soles, or Chelsea boots add 3+ cm instantly without fake insoles.",
+    id: "ht-1",
+    name: "1. Zone-1: Passive + Active Bar Dead Hang (23-Disc Traction)",
+    durationSec: 45,
+    frequency: "Din mein 3 baar (Subah, Dopahar, Sham)",
+    reps: "4 sets × 40–45 sec (Rest: 40 sec)",
+    gainTag: "+1.0 to 1.5 cm Barefoot (Disc Expansion)",
+    instruction:
+      "Pull-up bar ko shoulder-width pakad kar shoulders ko dhila chhod do. Pet andar kheench kar hips aur lower back ko bhaari latakne do. Har set ke baad zameen par koodna mana hai—step down aaram se karo taaki 23 spinal discs khuli rahein.",
   },
   {
-    id: "vh-monochrome",
-    title: "Use monochrome or tonal dark outfits (Navy, Charcoal, Olive, Black)",
-    sub: "Wearing similar colour tones on top and bottom creates an unbroken vertical line that makes you look 2–3 cm taller.",
+    id: "ht-2",
+    name: "2. Zone-2: Deep Kneeling Couch / Psoas Release (APT Pelvic Fix)",
+    durationSec: 60,
+    frequency: "Din mein 2 baar (Subah aur Sham)",
+    reps: "3 sets × 45 sec / leg (Rest: 20 sec)",
+    gainTag: "+0.8 to 1.2 cm Barefoot (Unfolds Lumbar S-Curve)",
+    instruction:
+      "22 saal bina sports/gym ke rehne se hip-flexor (Psoas) chota ho jata hai aur pelvis aage jhuk kar 1+ cm barefoot height chura leta hai. Ek ghutna zameen par rakho, belt-buckle ko naabhi ki taraf upar tuck karo, glutes 90% squeeze karo aur front hip ko kholo.",
   },
   {
-    id: "vh-waistline",
-    title: "Mid-rise straight trousers + T-shirt ending right at the belt bone",
-    sub: "Long baggy tees cut your leg length in half. Longer visual legs = taller perceived height.",
+    id: "ht-3",
+    name: "3. Zone-3: Rolled-Towel Thoracic Fulcrum + Y-Reach",
+    durationSec: 60,
+    frequency: "Din mein 2 baar (Dopahar aur Sham)",
+    reps: "3 sets × 60 sec lie-down hold",
+    gainTag: "+0.5 to 0.8 cm Barefoot (Upper-Back Kyphosis Fix)",
+    instruction:
+      "Ek मोटी towel ko tight roll karke cylinder banao. Use upper-mid back (shoulder blades ke neeche) rakh kar let jao. Hips zameen par rakho aur dono haath sir ke piche le jakar ribcage ko chhat ki taraf kholo.",
   },
   {
-    id: "vh-crown",
-    title: "Add 2–3 cm textured volume on top of hair with neat tapered sides",
-    sub: "A short quiff or textured crop with low-tapered sides adds both actual and visual vertical height.",
+    id: "ht-4",
+    name: "4. Zone-4: Wall Suboccipital Chin-Tuck & Crown Traction",
+    durationSec: 60,
+    frequency: "Din mein 3 baar (Subah, Dopahar, Sham)",
+    reps: "4 sets × 30 sec hold (Rest: 15 sec)",
+    gainTag: "+0.4 to 0.6 cm Barefoot (Fixes Forward Neck)",
+    instruction:
+      "Nange pair deewar se heels, glutes, shoulder blades aur sir ka pichla hissa chipkao. Chin ko andar tuck karo aur sir ke crown (choti wale hisse) ko chhat ki taraf 1 inch upar kheench kar rakho.",
   },
   {
-    id: "vh-lats",
-    title: "Build side delts & upper-back posture (Invisible String Cue)",
-    sub: "Walk as if an invisible thread is pulling the crown of your head toward the sky.",
+    id: "ht-5",
+    name: "5. Zone-5: Cobra to Downward-Dog Pedal (Hamstring & Knee Un-bend)",
+    durationSec: 60,
+    frequency: "Din mein 2 baar (Subah aur Sham)",
+    reps: "3 sets × 8 slow waves (60 sec)",
+    gainTag: "+0.3 to 0.4 cm Barefoot (Full Leg Extension)",
+    instruction:
+      "Tight hamstrings aur calves ki wajah se khade hote waqt ghutne 2–3 degree mude rehte hain. Cobra pose se chest uthao, fir hips upar push karke Downward Dog mein heels ko zameen me dabao taaki pair piche se 100% seedhe khulein.",
+  },
+  {
+    id: "ht-6",
+    name: "6. Zone-5: Barefoot 'Short-Foot' Plantar Arch Lift",
+    durationSec: 45,
+    frequency: "Din mein 2 baar (Subah aur Sham)",
+    reps: "3 sets × 20 sec hold",
+    gainTag: "+0.2 to 0.3 cm Barefoot (Lifts Collapsed Foot Arch)",
+    instruction:
+      "Nange pair khade hokar bina ungliyan mode apne pair ke talwe ke beech wale arch (bridge) ko upar uthao aur ankle ko seedha align karo. Flat feet sudharne se turant 2–3 mm barefoot height badhti hai.",
+  },
+  {
+    id: "ht-7",
+    name: "7. Prone Y-T-W Scapular Raises (Upper-Spine Pillar Lock)",
+    durationSec: 60,
+    frequency: "Din mein 1 baar (Sham Workout)",
+    reps: "3 sets × 10 reps each (Y, T, W)",
+    gainTag: "Prevents Upper-Back Slouching All Day",
+    instruction:
+      "Pet ke bal let kar chest halka uthao aur haatho se hawa mein Y, T aur W shape banao, shoulder blades ko aapas me squeeze karo. Ye kamzor upper-back muscles ko strong banata hai taaki spine wapas na jhuke.",
+  },
+  {
+    id: "ht-8",
+    name: "8. Dead-Bug + Glute-Bridge Core Bracing (Lumbar Pillar Lock)",
+    durationSec: 60,
+    frequency: "Din mein 1 baar (Sham Workout)",
+    reps: "3 sets × 12 Dead-Bugs + 15 Glute Bridges",
+    gainTag: "Locks +1.5 cm Morning Height Till Night",
+    instruction:
+      "Peeth ke bal let kar lower back ko zameen me زور se press karo (zero gap) aur alternate haath-pair lamba failao. Strong deep core (TVA) aur glutes aapke pelvis ko 24/7 seedha lock rakhte hain.",
+  },
+  {
+    id: "ht-9",
+    name: "9. Barefoot Masai Pogo Jumps (On Mat · Bone & Disc Pump)",
+    durationSec: 45,
+    frequency: "Din mein 1 baar (Sham · Empty Stomach)",
+    reps: "4 sets × 30 sec jumps (Rest: 30 sec)",
+    gainTag: "Stimulates Spinal Ring Apophyses & Discs",
+    instruction:
+      "Yoga mat par nange pair panjo (balls of feet) par vertical jumps karo aur hawa me sir ko chhat ki taraf kheench kar rakho. Cyclic loading aur unloading se spinal discs me nutrients pump hote hain.",
+  },
+  {
+    id: "ht-10",
+    name: "10. 90/90 Nighttime Disc Super-Hydration Traction",
+    durationSec: 90,
+    frequency: "Roz raat sone se theek pehle",
+    reps: "5 min 90/90 traction + Sleep with knee pillow",
+    gainTag: "Maxes Overnight +1.6 cm Disc Re-Swelling",
+    instruction:
+      "Sone se pehle 5 min peeth ke bal zameen/bed par let kar pindliyon (calves) ko chair ya takiyo ke dher par 90-degree rakho. Isse lower back flat ho jati hai aur raat bhar 23 discs paani + collagen sokh kar phoolti hain.",
+  },
+];
+
+const HEIGHT_DIET_ITEMS = [
+  {
+    id: "hd-water",
+    meal: "7:00 AM · Disc Rehydration & Collagen Catalyst",
+    title: "500 ml Warm Water + 1 Amla / ½ Lemon + Pinch Pink Salt",
+    nutrients: "High Vitamin C + Electrolytes (Builds Type-II Disc Collagen)",
+    detail:
+      "Spinal discs 80% paani aur Type-II Collagen se banti hain. Subah Vitamin C lene se discs ki cartilage gaddi moti aur elastic banti hai.",
+  },
+  {
+    id: "hd-breakfast",
+    meal: "8:30 AM · Catch-Up Egg & Calcium Breakfast",
+    title: "3 Whole Boiled Eggs + 2 Roti/Oats + 150g Dahi + 1 tsp White Til (Sesame)",
+    nutrients: "~28g Complete Protein · Vitamin D · 350mg Calcium · B12",
+    detail:
+      "22 saal ki protein kami ko poora karne ke liye 3 whole eggs sabse best hain. Safed Til aur Dahi haddiyon ko high-absorption calcium dete hain.",
+  },
+  {
+    id: "hd-lunch",
+    meal: "1:30 PM · IGF-1 & Amino-Acid Complete Lunch",
+    title: "1.5 Katori Gaadhi Dal + Rice/Roti + 100g Paneer (or 45g Soya) + Salad",
+    nutrients: "~35g Protein · High Lysine & Arginine · Zinc",
+    detail:
+      "Dal + Chawal + Paneer milkar Lysine aur Arginine dete hain jo tissue repair aur spinal muscle thickness ko tezi se badhate hain.",
+  },
+  {
+    id: "hd-preworkout",
+    meal: "5:00 PM · Pre-Decompression Fuel",
+    title: "1 Banana + 1 Mutthi Bhuna Chana + 2 Boiled Egg Whites",
+    nutrients: "~14g Protein · Potassium · Zero-Bloat Energy",
+    detail:
+      "Sham ke 20-min 5-Zone Barefoot Uncoiling session aur Dead Hangs ke liye grip aur core endurance deta hai.",
+  },
+  {
+    id: "hd-dinner",
+    meal: "8:30 PM · Bone-Binding & Postural Muscle Dinner",
+    title: "2 Whole Eggs Curry/Bhurji (or 100g Paneer) + 2–3 Roti + Green Leafy Sabzi",
+    nutrients: "~25g Protein · Vitamin K2 · Magnesium · Iron",
+    detail:
+      "Hari sabziyon ka Vitamin K2 aur Eggs ka protein calcium ko spinal vertebrae aur posture muscles mein lock karta hai.",
+  },
+  {
+    id: "hd-bedtime",
+    meal: "10:30 PM · Deep-Sleep GH & Cartilage Repair",
+    title: "250 ml Warm Milk + ¼ tsp Haldi + Pinch Black Pepper + 15 min Morning Sunlight",
+    nutrients: "~8g Slow Casein Protein · 300mg Calcium · Vitamin D3 Sync",
+    detail:
+      "Raat 11 PM se 2 AM ke beech Deep Sleep mein Growth Hormone (GH) release hokar decompressed discs ko repair aur thick karta hai.",
+  },
+];
+
+const BAREFOOT_RETENTION_HABITS = [
+  {
+    id: "br-string",
+    title: "The 'Invisible Crown String' Barefoot Walking Cue",
+    sub: "Ghar mein nange pair chalte waqt hamesha feel karo ki ek dhaga aapke sir ke upari hisse (crown) ko chhat ki taraf kheench raha hai (+0.6 cm instant).",
+  },
+  {
+    id: "br-glute",
+    title: "20% Glute & Lower-Ab Engagement While Standing",
+    sub: "Jab bhi khade ho, pet ko dheela mat chhodo—belt buckle ko halka upar tuck rakho taaki kamar wapas APT (arch) mein na jaye (+1.0 cm locked).",
+  },
+  {
+    id: "br-study",
+    title: "Eye-Level Laptop/Book Stand + 45-Min Micro-Hang Rule",
+    sub: "Jhuk kar padhne se 1 ghante mein 0.8 cm height dab jati hai. Screen aankhon ke level par rakho aur har 45 min baad 20 sec body ko upar stretch karo.",
+  },
+  {
+    id: "br-sleep",
+    title: "Zero Stomach-Sleeping + Thin/No Pillow Under Head",
+    sub: "Mota takiya gardan ko aage mod deta hai (Tech-Neck). Patla takiya sir ke neeche aur 1 takiya ghutno ke neeche rakh kar peeth ke bal soyein.",
+  },
+  {
+    id: "br-hydration",
+    title: "3.5 Liters Daily Water + Zero Heavy Overhead Axial Pressing",
+    sub: "Dehydration se spinal discs pichak jati hain. Din bhar 3.5L paani piyo aur sar ke upar bhaari barbell rakh kar spine ko compress mat karo.",
   },
 ];
 
@@ -201,11 +330,13 @@ function LooksPage({ data, setData, notify }) {
     foreheadVsJaw: "equal",
   });
 
-  /* Reclaimable Height Estimator State */
+  /* 100% Barefoot 5-Zone Reclaimable Height Estimator State (No Shoes/Slippers) */
   const [heightAudit, setHeightAudit] = useState({
-    sittingHours: "high", // low | med | high
-    aptLevel: "moderate", // none | moderate | high
-    neckSlouch: "yes", // no | yes
+    sittingHours: "high", // low | med | high (Zone 1: 23 Discs)
+    aptLevel: "high", // none | moderate | high (Zone 2: Pelvic Tilt)
+    thoracicRound: "high", // low | high (Zone 3: Upper Back & Ribcage)
+    neckSlouch: "yes", // no | yes (Zone 4: Cervical Tech-Neck)
+    untrainedHistory: "yes", // yes | no (Zone 5: Knee-Hamstring & Foot Arch + Catch-up Nutrition)
   });
 
   const today = todayISO();
@@ -215,8 +346,9 @@ function LooksPage({ data, setData, notify }) {
   const todayDayObj = (data.days && data.days[today]) || createEmptyDay();
 
   const [heightForm, setHeightForm] = useState({
-    morningCm: groom.morningHeightCm || +(safeNum(p.heightCm, 172) + 1.5).toFixed(1),
-    eveningCm: groom.eveningHeightCm || safeNum(p.heightCm, 172),
+    morningCm:
+      groom.morningHeightCm || +(safeNum(p.heightCm, 173) + 1.8).toFixed(1),
+    eveningCm: groom.eveningHeightCm || safeNum(p.heightCm, 173),
   });
 
   const setGroom = (patch) =>
@@ -312,16 +444,52 @@ function LooksPage({ data, setData, notify }) {
     }
   };
 
-  /* Height Decompression Routine Sync */
+  /* Height Decompression Routine, 4-Session & Diet Sync */
   const isHeightRoutineDoneToday = Boolean(
-    todayDayObj.life && todayDayObj.life.eyePosture && groom.heightDoneDate === today
+    todayDayObj.life &&
+      todayDayObj.life.eyePosture &&
+      groom.heightDoneDate === today
   );
+
+  const todayHeightSessions =
+    groom.heightSessionsDate === today ? groom.heightSessions || {} : {};
+  const todayHeightDiet =
+    groom.heightDietDate === today ? groom.heightDiet || {} : {};
+
+  const toggleHeightSession = (sessId) => {
+    const next = {
+      ...todayHeightSessions,
+      [sessId]: !todayHeightSessions[sessId],
+    };
+    setGroom({
+      heightSessionsDate: today,
+      heightSessions: next,
+    });
+  };
+
+  const toggleHeightDietItem = (dietId) => {
+    const next = {
+      ...todayHeightDiet,
+      [dietId]: !todayHeightDiet[dietId],
+    };
+    setGroom({
+      heightDietDate: today,
+      heightDiet: next,
+    });
+    const doneDietCount = Object.values(next).filter(Boolean).length;
+    if (
+      doneDietCount === HEIGHT_DIET_ITEMS.length &&
+      typeof notify === "function"
+    ) {
+      notify("Full Egg + Veg Barefoot Height Nutrition completed today!");
+    }
+  };
 
   const toggleHeightStepDone = (stepId) => {
     const next = { ...doneHeightSteps, [stepId]: !doneHeightSteps[stepId] };
     setDoneHeightSteps(next);
     const doneCount = Object.values(next).filter(Boolean).length;
-    if (doneCount >= 3) {
+    if (doneCount >= 5) {
       markFullHeightRoutineToday(true, next);
     }
   };
@@ -357,39 +525,65 @@ function LooksPage({ data, setData, notify }) {
     });
 
     if (val && typeof notify === "function") {
-      notify("Spinal Decompression & Height Protocol logged for today!");
+      notify("10-Step Barefoot Height Uncoiling Protocol logged for today!");
     }
   };
 
-  /* Reclaimable Height Calculation (Age 22 Biomechanics) */
+  /* 100% Barefoot 5-Zone Height Calculation (Without Shoes or Slippers) */
   const heightPotential = useMemo(() => {
-    let discGain = 0.6;
-    if (heightAudit.sittingHours === "high") discGain = 1.1;
-    else if (heightAudit.sittingHours === "med") discGain = 0.8;
+    // Zone 1: 23 Intervertebral Discs Decompression & Cartilage Swelling
+    let discGain = 0.8;
+    if (heightAudit.sittingHours === "high") discGain = 1.5;
+    else if (heightAudit.sittingHours === "med") discGain = 1.1;
 
-    let aptGain = 0.2;
-    if (heightAudit.aptLevel === "high") aptGain = 1.0;
-    else if (heightAudit.aptLevel === "moderate") aptGain = 0.6;
+    // Zone 2: Anterior Pelvic Tilt (APT) & Lumbar Uncoiling
+    let aptGain = 0.4;
+    if (heightAudit.aptLevel === "high") aptGain = 1.2;
+    else if (heightAudit.aptLevel === "moderate") aptGain = 0.8;
 
+    // Zone 3: Thoracic Kyphosis & Ribcage Elevation
+    const thoracicGain = heightAudit.thoracicRound === "high" ? 0.8 : 0.4;
+
+    // Zone 4: Cervical Tech-Neck & Suboccipital Alignment
     const neckGain = heightAudit.neckSlouch === "yes" ? 0.6 : 0.2;
 
-    const totalReclaimCm = +(discGain + aptGain + neckGain).toFixed(1);
-    const baseHeight = safeNum(p.heightCm, 172);
+    // Zone 5: Untrained Knee/Hamstring Extension + Foot Arch + Catch-up Nutrition
+    const untrainedGain = heightAudit.untrainedHistory === "yes" ? 0.4 : 0.1;
+
+    const totalReclaimCm = +(
+      discGain +
+      aptGain +
+      thoracicGain +
+      neckGain +
+      untrainedGain
+    ).toFixed(1);
+
+    const baseHeight = safeNum(p.heightCm, 173);
     const potentialHeight = +(baseHeight + totalReclaimCm).toFixed(1);
+    const lockedEveningBarefoot = +(potentialHeight - 0.4).toFixed(1);
 
     return {
       discGain,
       aptGain,
+      thoracicGain,
       neckGain,
+      untrainedGain,
       totalReclaimCm,
       baseHeight,
       potentialHeight,
+      lockedEveningBarefoot,
     };
   }, [heightAudit, p.heightCm]);
 
   const handleSaveHeightLog = () => {
-    const mCm = Math.max(130, Math.min(220, safeNum(heightForm.morningCm, 173.5)));
-    const eCm = Math.max(130, Math.min(220, safeNum(heightForm.eveningCm, 172)));
+    const mCm = Math.max(
+      130,
+      Math.min(220, safeNum(heightForm.morningCm, 174.8))
+    );
+    const eCm = Math.max(
+      130,
+      Math.min(220, safeNum(heightForm.eveningCm, 173))
+    );
     const entry = {
       id: uid(),
       date: today,
@@ -413,7 +607,7 @@ function LooksPage({ data, setData, notify }) {
     }));
 
     if (typeof notify === "function") {
-      notify(`Height logged: Morning ${mCm} cm · Evening ${eCm} cm`);
+      notify(`Barefoot Height logged: Morning ${mCm} cm · Evening ${eCm} cm`);
     }
   };
 
@@ -449,7 +643,7 @@ function LooksPage({ data, setData, notify }) {
 
   const copyBarberInstructions = async () => {
     const guide = FACE_SHAPES_GUIDE[selectedFaceShape];
-    const text = `Barber Notes (${guide.label}):\n• Haircut: ${guide.haircut}\n• Sides: Low/Mid taper fade (#1.5 to #3 guard), keep upper-side structure.\n• Beard: ${guide.beard} (Neckline 1 finger above Adam's apple).`;
+    const text = `Barber Notes (${guide.label}):\nHaircut: ${guide.haircut}\nSides: Low/Mid taper fade (#1.5 to #3 guard), keep upper-side structure.\nBeard: ${guide.beard} (Neckline 1 finger above Adam's apple).`;
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
@@ -532,14 +726,17 @@ function LooksPage({ data, setData, notify }) {
     Boolean(groom.weeklyChecks && groom.weeklyChecks[wg.id])
   ).length;
 
+  const completedDietCount = Object.values(todayHeightDiet).filter(Boolean).length;
+  const completedSessionCount = Object.values(todayHeightSessions).filter(Boolean).length;
+
   return (
     <>
       <Heading
-        title="Looks, height posture & style"
-        description="Focus on what actually works: posture, spinal decompression (+1–2 cm height), skin clarity, haircut framing, and well-fitted clothes."
+        title="Looks, barefoot height uncoiling & style"
+        description="100% Barefoot 5-Zone Kinetic Uncoiling (173 → 177–177.5 cm target without shoes/slippers), Egg + Collagen disc nutrition, facial posture, skin clarity, and well-fitted clothes."
       />
 
-      <div className="stats-grid jsx-2f23af6b" >
+      <div className="stats-grid jsx-2f23af6b">
         <Stat
           icon="◌"
           label="Today's Face Routine"
@@ -551,9 +748,9 @@ function LooksPage({ data, setData, notify }) {
         />
         <Stat
           icon="↕"
-          label="Height & Decompression"
-          value={`+${heightPotential.totalReclaimCm} cm`}
-          detail={`${heightPotential.baseHeight} → ${heightPotential.potentialHeight} cm potential`}
+          label="Barefoot Height Target"
+          value={`+${heightPotential.totalReclaimCm} cm (Barefoot)`}
+          detail={`${heightPotential.baseHeight} → ${heightPotential.potentialHeight} cm without shoes`}
           color="blue"
         />
         <Stat
@@ -575,7 +772,7 @@ function LooksPage({ data, setData, notify }) {
       <div className="tabs large-tabs">
         {[
           ["face", "Face & Posture Routine"],
-          ["height", "Height (+1–2 cm Protocol)"],
+          ["height", "Barefoot Height (173 → 177+ cm)"],
           ["hair", "Hair & Beard Guide"],
           ["skin", "Skin & Tan Control"],
           ["groom", "Wardrobe & Quick Wins"],
@@ -624,19 +821,19 @@ function LooksPage({ data, setData, notify }) {
                 </Button>
               </div>
 
-              <div className="stack-col jsx-dffc4db2" >
+              <div className="stack-col jsx-dffc4db2">
                 {FACE_ROUTINE_STEPS.map((s) => {
                   const stepDone =
                     Boolean(doneRoutineSteps[s.id]) || isFaceRoutineLoggedToday;
                   return (
                     <div
                       key={s.id}
-                      className={`routine-step-box ${stepDone ? "routine-step-complete" : ""}`}
+                      className={`routine-step-box ${
+                        stepDone ? "routine-step-complete" : ""
+                      }`}
                     >
                       <div className="row-between">
-                        <div
-                          className="jsx-f265ed37"
-                        >
+                        <div className="jsx-f265ed37">
                           <button
                             type="button"
                             className="check-circle"
@@ -672,7 +869,7 @@ function LooksPage({ data, setData, notify }) {
               <Card>
                 <div className="eyebrow">ORDERED BY REAL IMPACT</div>
                 <h2>What actually improves your face</h2>
-                <div className="habit-list jsx-4bb90035" >
+                <div className="habit-list jsx-4bb90035">
                   {FACE_SACH_CARD.impactOrder.map((item) => (
                     <div className="habit-row" key={item.rank}>
                       <span className="status-pill complete">#{item.rank}</span>
@@ -686,7 +883,7 @@ function LooksPage({ data, setData, notify }) {
               </Card>
 
               {auditSummary.dentistAlerts.length > 0 && (
-                <div className="intro-callout jsx-50435ff2" >
+                <div className="intro-callout jsx-50435ff2">
                   <div className="callout-icon">⚠️</div>
                   <div>
                     <strong>
@@ -716,10 +913,7 @@ function LooksPage({ data, setData, notify }) {
                     return (
                       <div key={q.id} className="audit-q-box">
                         <strong>{q.question}</strong>
-                        <div
-                          className="category-pills jsx-0d69e4b1"
-                          
-                        >
+                        <div className="category-pills jsx-0d69e4b1">
                           {q.options.map((opt) => (
                             <button
                               type="button"
@@ -735,7 +929,9 @@ function LooksPage({ data, setData, notify }) {
                         </div>
                         {currentAns && (
                           <small
-                            className={`muted-text ${isDentistFlag ? "dentist-flag-note" : ""}`}
+                            className={`muted-text ${
+                              isDentistFlag ? "dentist-flag-note" : ""
+                            }`}
                           >
                             {isDentistFlag ? "⚠️ Dentist Note: " : "💡 Tip: "}
                             {q.tip}
@@ -752,7 +948,7 @@ function LooksPage({ data, setData, notify }) {
       )}
 
       {/* =====================================================================
-          TAB 2 (NEW): HEIGHT (+1 TO 2.5 CM BIOMECHANICAL PROTOCOL AT AGE 22)
+          TAB 2 (100% BAREFOOT): 173 -> 177-177.5 CM WITHOUT SHOES OR SLIPPERS
           ===================================================================== */}
       {subTab === "height" && (
         <div className="stack-col">
@@ -760,33 +956,83 @@ function LooksPage({ data, setData, notify }) {
             <div className="callout-icon">↕</div>
             <div>
               <strong>
-                Age 22 Par 1–2 cm Height Badhane Ka Honest Scientific Sach
+                100% Barefoot (Bina Shoes/Slippers) 173 → 177–177.5 cm Blueprint
               </strong>
               <p>
-                22 ki umar mein leg bones ki growth plates fuse ho chuki hoti
-                hain, isliye fake height pills se door raho. Lekin aapki{" "}
-                <strong>23 Spinal Discs (reerh ki gaddiyan)</strong>,{" "}
-                <strong>Anterior Pelvic Tilt (APT)</strong>, aur{" "}
-                <strong>Forward Neck Slouch</strong> mein{" "}
-                <strong>1.5 se 2.5 cm</strong> asli standing height dabi hoti
-                hai—jise Spinal Decompression aur Alignment se 4–6 weeks mein
-                reclaim kiya ja sakta hai.
+                Kyunki aapne 22 saal tak kabhi gym, running ya sports nahi khela
+                aur bachpan me low-protein diet rahi, aapke शरीर ke{" "}
+                <strong>5 Barefoot Kinetic Zones</strong>—<strong>1) 23 Spinal Discs (+1.5 cm)</strong>,{" "}
+                <strong>2) APT Pelvic Tilt (+1.2 cm)</strong>,{" "}
+                <strong>3) Thoracic Upper-Back Curve (+0.8 cm)</strong>,{" "}
+                <strong>4) Forward Neck (+0.6 cm)</strong>, aur{" "}
+                <strong>5) Knee-Hamstring &amp; Foot Arch (+0.4 cm)</strong>—mein{" "}
+                kul milakar <strong>+3.6 se +4.5 cm asli Barefoot Height</strong>{" "}
+                dabi ho sakti hai. Agle 90–120 din roz{" "}
+                <strong>4 Micro-Sessions + 5 Whole Eggs/Collagen Diet</strong>{" "}
+                follow karke aap bina jooto ke{" "}
+                <strong>176.6 se 177.5 cm (Barefoot)</strong> tak pahunch sakte ho.
               </p>
             </div>
           </div>
 
+          {/* 4-SESSION DAILY BAREFOOT FREQUENCY TRACKER */}
+          <Card>
+            <div className="section-head">
+              <div>
+                <div className="eyebrow">
+                  DIN MEIN 4 BAAR BAREFOOT DECOMPRESSION (MICRO-SESSIONS)
+                </div>
+                <h2>
+                  Daily Barefoot Schedule ({completedSessionCount}/
+                  {HEIGHT_DAILY_SESSIONS.length} Sessions Done Today)
+                </h2>
+                <p>
+                  Nange pair 177+ cm lock karne ke liye spine ko din bhar
+                  shrink hone se bachana zaroori hai. Ye 4 sessions roz tick karo:
+                </p>
+              </div>
+              <span className="status-pill complete">
+                ~35–40 Mins Total / Day
+              </span>
+            </div>
+
+            <div className="form-grid jsx-4bb90035">
+              {HEIGHT_DAILY_SESSIONS.map((sess) => {
+                const checked = Boolean(todayHeightSessions[sess.id]);
+                return (
+                  <div
+                    key={sess.id}
+                    className={`habit-row ${checked ? "checked" : ""}`}
+                  >
+                    <button
+                      type="button"
+                      className={`check-circle ${checked ? "checked" : ""}`}
+                      onClick={() => toggleHeightSession(sess.id)}
+                    >
+                      {checked ? "✓" : ""}
+                    </button>
+                    <div className="habit-info">
+                      <strong>{sess.title}</strong>
+                      <small>{sess.sub}</small>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+
           <div className="dashboard-grid">
-            {/* LEFT: 5-STEP SPINAL DECOMPRESSION & ALIGNMENT PROTOCOL */}
+            {/* LEFT: 10-STEP BAREFOOT 5-ZONE UNCOILING PROTOCOL */}
             <Card>
               <div className="section-head">
                 <div>
                   <div className="eyebrow">
-                    EVIDENCE-BASED SPINAL DECOMPRESSION
+                    10-EXERCISE BAREFOOT 5-ZONE UNCOILING PROTOCOL
                   </div>
-                  <h2>Daily 6-Min Height &amp; Spine Lengthening Routine</h2>
+                  <h2>Exact Sets, Reps, Timers &amp; Anatomical Zones</h2>
                   <p>
-                    Best done after long study sessions or before sleep to
-                    decompress your 23 intervertebral discs.
+                    Sabhi exercises yoga mat par nange pair (barefoot) karein.
+                    Complete at least 5 steps to log today&apos;s streak.
                   </p>
                 </div>
                 <Button
@@ -797,23 +1043,23 @@ function LooksPage({ data, setData, notify }) {
                 >
                   {isHeightRoutineDoneToday
                     ? "✓ Logged Today"
-                    : "✓ Complete All 5 Steps"}
+                    : "✓ Complete All 10 Steps"}
                 </Button>
               </div>
 
-              <div className="stack-col jsx-4bb90035" >
+              <div className="stack-col jsx-4bb90035">
                 {HEIGHT_DECOMPRESSION_STEPS.map((s) => {
                   const stepDone =
                     Boolean(doneHeightSteps[s.id]) || isHeightRoutineDoneToday;
                   return (
                     <div
                       key={s.id}
-                      className={`routine-step-box ${stepDone ? "routine-step-complete" : ""}`}
+                      className={`routine-step-box ${
+                        stepDone ? "routine-step-complete" : ""
+                      }`}
                     >
                       <div className="row-between">
-                        <div
-                          className="jsx-f265ed37"
-                        >
+                        <div className="jsx-f265ed37">
                           <button
                             type="button"
                             className={`check-circle ${
@@ -831,7 +1077,8 @@ function LooksPage({ data, setData, notify }) {
                       </div>
 
                       <small className="muted-text">
-                        Prescription: <strong>{s.reps}</strong>
+                        Sets &amp; Reps: <strong>{s.reps}</strong> · Frequency:{" "}
+                        <strong>{s.frequency}</strong>
                       </small>
                       <p>{s.instruction}</p>
 
@@ -841,7 +1088,7 @@ function LooksPage({ data, setData, notify }) {
                         onComplete={() => {
                           toggleHeightStepDone(s.id);
                           if (typeof notify === "function") {
-                            notify(`${s.name} hold complete!`);
+                            notify(`${s.name} set complete!`);
                           }
                         }}
                       />
@@ -851,24 +1098,24 @@ function LooksPage({ data, setData, notify }) {
               </div>
             </Card>
 
-            {/* RIGHT: HIDDEN HEIGHT CALCULATOR + MORNING VS EVENING LOG + VISUAL +3CM */}
+            {/* RIGHT: 100% BAREFOOT 5-ZONE CALCULATOR + EGG DIET + DIURNAL TRACKER + 24/7 LOCK */}
             <div className="stack-col">
               <Card>
                 <div className="eyebrow">
-                  HIDDEN POSTURAL HEIGHT CALCULATOR
+                  100% BAREFOOT 5-ZONE HEIGHT CALCULATOR (NO SHOES/SLIPPERS)
                 </div>
                 <h2>
-                  Kitne cm height aapki posture mein dabi hui hai? (+
-                  {heightPotential.totalReclaimCm} cm)
+                  Barefoot Target: {heightPotential.baseHeight} cm →{" "}
+                  {heightPotential.potentialHeight} cm (+
+                  {heightPotential.totalReclaimCm} cm Barefoot)
                 </h2>
                 <p>
-                  Answer 3 quick questions below to see how much vertical
-                  stadiometer height you can unlock from decompression &amp;
-                  pelvic alignment:
+                  Check your compression across all 5 anatomical zones below
+                  (100% without footwear):
                 </p>
 
-                <div className="stack-col jsx-4bb90035" >
-                  <Field label="1. Roz kitne ghante lagatar chair/bed par baith kar padhte ho?">
+                <div className="stack-col jsx-4bb90035">
+                  <Field label="Zone 1 (23 Spinal Discs): Roz kitne ghante chair/bed par baith kar padhte ho?">
                     <select
                       value={heightAudit.sittingHours}
                       onChange={(e) =>
@@ -879,18 +1126,18 @@ function LooksPage({ data, setData, notify }) {
                       }
                     >
                       <option value="high">
-                        6–10+ hours/day (High disc compression: ~1.1 cm)
+                        6–10+ hours/day (+1.5 cm barefoot disc decompression)
                       </option>
                       <option value="med">
-                        3–6 hours/day (Moderate compression: ~0.8 cm)
+                        3–6 hours/day (+1.1 cm barefoot disc decompression)
                       </option>
                       <option value="low">
-                        Under 3 hours/day (Minimal compression: ~0.6 cm)
+                        Under 3 hours/day (+0.8 cm barefoot disc decompression)
                       </option>
                     </select>
                   </Field>
 
-                  <Field label="2. Kya aapki lower back arch hoti hai aur pet aage nikalta hai (APT)?">
+                  <Field label="Zone 2 (Pelvic Tilt - APT): Kya kamar andar arch hoti hai aur pet aage nikalta hai?">
                     <select
                       value={heightAudit.aptLevel}
                       onChange={(e) =>
@@ -901,18 +1148,37 @@ function LooksPage({ data, setData, notify }) {
                       }
                     >
                       <option value="high">
-                        Yes, noticeable lower-back arch (~1.0 cm hidden)
+                        Yes, noticeable lower-back arch / untrained hips (+1.2 cm barefoot)
                       </option>
                       <option value="moderate">
-                        Slight pelvic tilt from sitting (~0.6 cm hidden)
+                        Moderate pelvic tilt from sitting (+0.8 cm barefoot)
                       </option>
                       <option value="none">
-                        No, flat neutral pelvis (~0.2 cm)
+                        Flat neutral pelvis (+0.4 cm barefoot)
                       </option>
                     </select>
                   </Field>
 
-                  <Field label="3. Phone/Laptop dekhte waqt gardan aur kandhe aage jhukte hain?">
+                  <Field label="Zone 3 (Upper Back & Ribcage): Kya kandhe aur upper back thode aage gol (slouch) rehte hain?">
+                    <select
+                      value={heightAudit.thoracicRound}
+                      onChange={(e) =>
+                        setHeightAudit({
+                          ...heightAudit,
+                          thoracicRound: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="high">
+                        Yes, rounded upper back / ribcage drop (+0.8 cm barefoot)
+                      </option>
+                      <option value="low">
+                        Mostly upright chest (+0.4 cm barefoot)
+                      </option>
+                    </select>
+                  </Field>
+
+                  <Field label="Zone 4 (Tech-Neck): Phone/Laptop dekhte waqt gardan aage jhukti hai?">
                     <select
                       value={heightAudit.neckSlouch}
                       onChange={(e) =>
@@ -923,54 +1189,123 @@ function LooksPage({ data, setData, notify }) {
                       }
                     >
                       <option value="yes">
-                        Yes, tech-neck / rounded shoulders (~0.6 cm hidden)
+                        Yes, forward head / tech-neck (+0.6 cm barefoot)
                       </option>
                       <option value="no">
-                        No, ears stay aligned over shoulders (~0.2 cm)
+                        No, neck aligned with spine (+0.2 cm barefoot)
+                      </option>
+                    </select>
+                  </Field>
+
+                  <Field label="Zone 5 (Hamstrings, Foot Arch & Untrained History): Kabhi gym/sports nahi khela?">
+                    <select
+                      value={heightAudit.untrainedHistory}
+                      onChange={(e) =>
+                        setHeightAudit({
+                          ...heightAudit,
+                          untrainedHistory: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="yes">
+                        Never played sports/gym + tight hamstrings (+0.4 cm barefoot)
+                      </option>
+                      <option value="no">
+                        Already flexible &amp; trained (+0.1 cm barefoot)
                       </option>
                     </select>
                   </Field>
                 </div>
 
-                <div
-                  className="mini-stat-row jsx-99bf9265"
-                  
-                >
+                <div className="mini-stat-row jsx-99bf9265">
                   <div>
                     <span className="mini-stat-number">
                       {heightPotential.baseHeight} cm
                     </span>
-                    <span>Current Compressed Height</span>
+                    <span>Current Barefoot Height</span>
                   </div>
                   <div>
                     <span className="mini-stat-number">
                       +{heightPotential.totalReclaimCm} cm
                     </span>
-                    <span>Reclaimable Spine + APT</span>
+                    <span>5-Zone Barefoot Gain</span>
                   </div>
                   <div>
                     <span className="mini-stat-number">
                       {heightPotential.potentialHeight} cm
                     </span>
-                    <span>Decompressed Peak Height</span>
+                    <span>
+                      Peak Barefoot ({heightPotential.lockedEveningBarefoot} cm PM)
+                    </span>
                   </div>
+                </div>
+              </Card>
+
+              {/* DAILY EGG + VEG CATCH-UP NUTRITION TRACKER */}
+              <Card>
+                <div className="section-head">
+                  <div>
+                    <div className="eyebrow">
+                      ROZ KYA KHANA HAI? (BAREFOOT DISC &amp; BONE CATCH-UP DIET)
+                    </div>
+                    <h2>
+                      Daily 5-Egg + Desi Veg Nutrition ({completedDietCount}/
+                      {HEIGHT_DIET_ITEMS.length} Meals)
+                    </h2>
+                    <p>
+                      Bachpan ki protein kami poori karne aur 23 spinal discs ki
+                      gaddi (Type-II Collagen) ko mota karne ke liye roz ye 6
+                      meals poori karo:
+                    </p>
+                  </div>
+                  <span className="status-pill complete">
+                    ~100g Protein / Day
+                  </span>
+                </div>
+
+                <div className="habit-list jsx-4bb90035">
+                  {HEIGHT_DIET_ITEMS.map((item) => {
+                    const checked = Boolean(todayHeightDiet[item.id]);
+                    return (
+                      <div
+                        key={item.id}
+                        className={`habit-row ${checked ? "checked" : ""}`}
+                      >
+                        <button
+                          type="button"
+                          className={`check-circle ${checked ? "checked" : ""}`}
+                          onClick={() => toggleHeightDietItem(item.id)}
+                        >
+                          {checked ? "✓" : ""}
+                        </button>
+                        <div className="habit-info">
+                          <small className="muted-text">
+                            <strong>{item.meal}</strong> · {item.nutrients}
+                          </small>
+                          <strong>{item.title}</strong>
+                          <small>{item.detail}</small>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </Card>
 
               <Card>
                 <div className="eyebrow">
-                  DIURNAL SPINE TRACKER (MORNING VS. NIGHT)
+                  BAREFOOT DIURNAL TRACKER (MORNING VS. NIGHT)
                 </div>
-                <h2>Measure your 1.5 cm morning vs. evening gap</h2>
+                <h2>Track your barefoot morning vs. night height</h2>
                 <p>
-                  Har insaan subah uthte hi <strong>1.5 se 2 cm lamba</strong>{" "}
-                  hota hai kyunki raat mein discs phool jati hain. Goal ye hai
-                  ki Dead Hangs aur Core/Glute strength se aap subah wali height
-                  din bhar hold kar sako.
+                  Deewar ke sahare <strong>nange pair (without slippers)</strong>{" "}
+                  subah uthte hi aur raat ko sone se pehle apni height napo.
+                  Jaise-jaise aapki core/back strong hogi aur discs hydrate
+                  hongi, aapki subah aur raat dono ki barefoot height 177 cm ke
+                  paas lock hone lagegi.
                 </p>
 
-                <div className="form-grid jsx-4bb90035" >
-                  <Field label="Morning Height (Right after waking up - cm)">
+                <div className="form-grid jsx-4bb90035">
+                  <Field label="Barefoot Morning Height (Right after waking up - cm)">
                     <input
                       type="number"
                       step="0.1"
@@ -983,7 +1318,7 @@ function LooksPage({ data, setData, notify }) {
                       }
                     />
                   </Field>
-                  <Field label="Evening Height (Before bed - cm)">
+                  <Field label="Barefoot Evening Height (Before bed - cm)">
                     <input
                       type="number"
                       step="0.1"
@@ -998,36 +1333,34 @@ function LooksPage({ data, setData, notify }) {
                   </Field>
                 </div>
 
-                <div
-                  className="row-between jsx-b08e79e1"
-                  
-                >
+                <div className="row-between jsx-b08e79e1">
                   <Button kind="primary" onClick={handleSaveHeightLog}>
-                    Save Height Measurement
+                    Save Barefoot Measurement
                   </Button>
                   <span className="status-pill complete">
-                    Daily Disc Shrinkage:{" "}
+                    Daytime Shrinkage:{" "}
                     {Math.max(
                       0,
-                      safeNum(heightForm.morningCm, 173.5) -
-                        safeNum(heightForm.eveningCm, 172)
+                      safeNum(heightForm.morningCm, 174.8) -
+                        safeNum(heightForm.eveningCm, 173)
                     ).toFixed(1)}{" "}
-                    cm
+                    cm (Target: &lt;0.5 cm)
                   </span>
                 </div>
 
                 {(groom.heightLogs || []).length > 0 && (
-                  <div className="habit-list jsx-4bb90035" >
+                  <div className="habit-list jsx-4bb90035">
                     {(groom.heightLogs || []).slice(0, 4).map((hl) => (
                       <div key={hl.id} className="habit-row checked">
                         <div className="habit-info">
                           <strong>
-                            ☀ AM: {hl.morningCm} cm · ☾ PM: {hl.eveningCm} cm
+                            ☀ Barefoot AM: {hl.morningCm} cm · ☾ Barefoot PM:{" "}
+                            {hl.eveningCm} cm
                           </strong>
                           <small>{fmtDate(hl.date)}</small>
                         </div>
                         <span className="status-pill">
-                          Δ {hl.dropCm} cm gap
+                          Δ {hl.dropCm} cm loss
                         </span>
                       </div>
                     ))}
@@ -1037,11 +1370,11 @@ function LooksPage({ data, setData, notify }) {
 
               <Card>
                 <div className="eyebrow">
-                  INSTANT VISUAL HEIGHT (+2.5 TO 3.5 CM PERCEIVED)
+                  24/7 BAREFOOT HEIGHT RETENTION RULES
                 </div>
-                <h2>5 Optical &amp; Footwear Rules to Look Taller Today</h2>
-                <div className="habit-list jsx-4bb90035" >
-                  {VISUAL_HEIGHT_HACKS.map((vh) => {
+                <h2>5 Daily Habits to Lock Your 177 cm Barefoot Posture</h2>
+                <div className="habit-list jsx-4bb90035">
+                  {BAREFOOT_RETENTION_HABITS.map((vh) => {
                     const checked = Boolean(visualHeightChecks[vh.id]);
                     return (
                       <div
@@ -1093,7 +1426,7 @@ function LooksPage({ data, setData, notify }) {
                 </Button>
               </div>
 
-              <div className="category-pills jsx-4bb90035" >
+              <div className="category-pills jsx-4bb90035">
                 {Object.keys(FACE_SHAPES_GUIDE).map((shape) => (
                   <button
                     type="button"
@@ -1106,7 +1439,7 @@ function LooksPage({ data, setData, notify }) {
                 ))}
               </div>
 
-              <div className="intro-callout jsx-a0d4a037" >
+              <div className="intro-callout jsx-a0d4a037">
                 <div className="callout-icon">✂</div>
                 <div>
                   <strong>{FACE_SHAPES_GUIDE[selectedFaceShape].label}</strong>
@@ -1195,7 +1528,7 @@ function LooksPage({ data, setData, notify }) {
               <Card>
                 <div className="eyebrow">BARBER CHEAT-SHEET</div>
                 <h2>What to tell your barber</h2>
-                <div className="habit-list jsx-4bb90035" >
+                <div className="habit-list jsx-4bb90035">
                   <div className="habit-row">
                     <div className="habit-info">
                       <strong>Show 2 clear photos (front &amp; side)</strong>
@@ -1231,7 +1564,7 @@ function LooksPage({ data, setData, notify }) {
               <Card>
                 <div className="eyebrow">28-DAY GROOMING CYCLE</div>
                 <h2>Haircut &amp; neckline tracker</h2>
-                <div className="form-grid jsx-4bb90035" >
+                <div className="form-grid jsx-4bb90035">
                   <Field label="Last Haircut Date">
                     <input
                       type="date"
@@ -1247,7 +1580,8 @@ function LooksPage({ data, setData, notify }) {
                   <p className="jsx-4bb90035">
                     • Days since last haircut:{" "}
                     <strong>{haircutStatus.daysSince} days</strong>
-                    <br />• Recommended next trim (4-week cycle):{" "}
+                    <br />
+                    Recommended next trim (4-week cycle):{" "}
                     <strong>{fmtDate(haircutStatus.nextIdealISO)}</strong>{" "}
                     {haircutStatus.daysLeft <= 0 ? (
                       <span className="status-pill peach-pill">
@@ -1292,7 +1626,7 @@ function LooksPage({ data, setData, notify }) {
               </span>
             </div>
 
-            <div className="form-grid jsx-4bb90035" >
+            <div className="form-grid jsx-4bb90035">
               {[
                 [
                   "amCleanse",
@@ -1341,7 +1675,7 @@ function LooksPage({ data, setData, notify }) {
           <Card>
             <div className="eyebrow">AM &amp; PM SKINCARE BUILDER</div>
             <h2>Select your skin type</h2>
-            <div className="category-pills jsx-4bb90035" >
+            <div className="category-pills jsx-4bb90035">
               {Object.keys(SKIN_ROUTINES).map((st) => (
                 <button
                   type="button"
@@ -1357,13 +1691,13 @@ function LooksPage({ data, setData, notify }) {
               <div className="routine-step-box">
                 <strong>Morning (AM) Routine</strong>
                 {SKIN_ROUTINES[selectedSkinType].am.map((line, i) => (
-                  <p key={i}>• {line}</p>
+                  <p key={i}>{line}</p>
                 ))}
               </div>
               <div className="routine-step-box">
                 <strong>Night (PM) &amp; Weekly Care</strong>
                 {SKIN_ROUTINES[selectedSkinType].pm.map((line, i) => (
-                  <p key={i}>• {line}</p>
+                  <p key={i}>{line}</p>
                 ))}
                 <p className="jsx-0d69e4b1">
                   <strong>Weekly:</strong>{" "}
@@ -1391,7 +1725,7 @@ function LooksPage({ data, setData, notify }) {
                   {quickWinsDoneCount}/{WEEK1_QUICK_WINS.length}
                 </span>
               </div>
-              <div className="habit-list jsx-4bb90035" >
+              <div className="habit-list jsx-4bb90035">
                 {WEEK1_QUICK_WINS.map((qw) => {
                   const checked = Boolean(
                     groom.quickWins && groom.quickWins[qw.id]
@@ -1441,7 +1775,7 @@ function LooksPage({ data, setData, notify }) {
                   )}
                 </div>
               </div>
-              <div className="habit-list jsx-4bb90035" >
+              <div className="habit-list jsx-4bb90035">
                 {WEEKLY_GROOM_CHECKS.map((wg) => {
                   const checked = Boolean(
                     groom.weeklyChecks && groom.weeklyChecks[wg.id]
@@ -1512,7 +1846,7 @@ function LooksPage({ data, setData, notify }) {
             </div>
 
             <div className="jsx-a1836c1d">
-              <div className="row-between jsx-e7b13069" >
+              <div className="row-between jsx-e7b13069">
                 <strong>Closet Readiness ({wardrobeSummary.pct}%)</strong>
                 <span>
                   Est. Remaining Upgrade Cost:{" "}
@@ -1525,7 +1859,7 @@ function LooksPage({ data, setData, notify }) {
               <Progress value={wardrobeSummary.pct} />
             </div>
 
-            <div className="table-wrap jsx-4bb90035" >
+            <div className="table-wrap jsx-4bb90035">
               <table className="clean-table">
                 <thead>
                   <tr>
@@ -1578,7 +1912,7 @@ function LooksPage({ data, setData, notify }) {
           <Card>
             <div className="eyebrow">PROPORTION &amp; VISUAL STRUCTURE</div>
             <h2>4-Point clothing fit audit for slim frames</h2>
-            <div className="habit-list jsx-4bb90035" >
+            <div className="habit-list jsx-4bb90035">
               {FIT_RULES_CHECKLIST.map((rule) => {
                 const checked = Boolean(fitChecks[rule.id]);
                 return (
