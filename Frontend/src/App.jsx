@@ -3,90 +3,26 @@ import { Moon, Sun } from "lucide-react";
 import "./App.css";
 import {
   SCHEMA_VERSION,
-  WEEKDAY_KEYS,
   todayISO,
   uid,
-  parseLocalISO,
-  addDaysISO,
-  dayDiff,
   getDayIndex,
-  getWeekdayShort,
-  fmtDate,
-  percent,
   safeNum,
   discreetText,
-  DISCLAIMER_TEXT,
-  QUOTES,
-  MINIMUM_DAY_IDS,
-  SCORED_CHECKS,
-  LIFE_BASICS,
-  CONTROL_LOOPS,
-  FACE_HABITS,
-  DEFAULT_SCHEDULE,
-  MOOD_ACTIVITIES,
-  URGE_STEPS,
-  URGE_TRIGGERS,
-  URGE_LOCATIONS,
-  SOS_TEXT_TEMPLATES,
-  ENV_CHECKLIST,
-  HOME_WORKOUT_PLAN,
-  YOGA_POSES,
-  AVOID_IN_APT,
-  GYM_WORKOUT_PLAN,
-  GYM_DARR_TIPS,
-  FRAME_BONE_CONTENT,
-  CALCIUM_TABLE,
-  PROTEIN_TABLE,
-  DIET_PLANS,
-  WEIGHT_GAIN_TIPS,
-  FACE_SACH_CARD,
-  FACE_AUDIT_QUESTIONS,
-  FACE_ROUTINE_STEPS,
-  FACE_SHAPES_GUIDE,
-  SKIN_ROUTINES,
-  WARDROBE_CAPSULE,
-  WEEK1_QUICK_WINS,
-  WEEKLY_GROOM_CHECKS,
-  EXPOSURE_LADDER,
-  PHQ9_QUESTIONS,
-  GAD7_QUESTIONS,
-  ROADMAP_PHASES,
-  QUESTS,
-  HEALTH_TESTS,
-  SUPPLEMENT_TIERS,
   createEmptyDay,
   createInitialData,
   calcDailyScoreBreakdown,
-  calcDailyScore,
   calcStreaks,
-  calcBodyMetrics,
-  buildSmoothSvgPath,
   triggerCompletionFeedback,
-  ModernAreaChart,
-  ModernDonutChart,
-  ModernRadarChart,
   Icon,
   Button,
-  Card,
-  Heading,
-  Empty,
-  Progress,
-  Field,
   Modal,
-  Stat,
-  Accordion,
-  CountdownTimer,
-  Heatmap90,
   NAV,
-  DAILY_HOME_WORKOUTS,
-  QUICK_PROTEIN_FOODS,
 } from "./shared.jsx";
 import { usePageNav } from "./hooks/usePageNav.js";
 import { useSwipeNav } from "./hooks/useSwipeNav.js";
 import { TodayPage } from "./pages/TodayPage.jsx";
 import { HabitsAndTrackPage } from "./pages/HabitsAndTrackPage.jsx";
 import { QuestPage } from "./pages/QuestPage.jsx";
-import { HunterRankPage } from "./pages/HunterRankPage.jsx";
 import { LifestyleAndBodyPage } from "./pages/LifestyleAndBodyPage.jsx";
 import { LooksPage } from "./pages/LooksPage.jsx";
 import { ResetAndSOSPage } from "./pages/ResetAndSOSPage.jsx";
@@ -155,12 +91,11 @@ function getDailyWinXP(questData, date) {
   );
 }
 
-/* Every page the app can show. Swipe order = NAV order first, then any extra page. */
+/* Streamlined Page List (Merged Rank into Quest) */
 const ALL_PAGES = [
   "Today",
   "Habits",
   "Quest",
-  "Rank",
   "Lifestyle",
   "Looks",
   "Reset",
@@ -170,7 +105,9 @@ const ALL_PAGES = [
   "Speak",
   "More",
 ];
-const PAGES = [...NAV.map(([name]) => name), ...ALL_PAGES].filter(
+
+const CLEAN_NAV = NAV.filter(([name]) => name !== "Rank");
+const PAGES = [...CLEAN_NAV.map(([name]) => name), ...ALL_PAGES].filter(
   (n, i, a) => a.indexOf(n) === i
 );
 
@@ -201,14 +138,13 @@ export default function App() {
     [p.discreet]
   );
 
-  /* Page navigation: real browser history (Back works) + swipe between pages */
   const { page, direction, navigate } = usePageNav(PAGES, "Today");
-  const setPage = navigate; // every existing setPage("...") call now pushes history
+  const setPage = navigate;
   useSwipeNav({
     page,
     pages: PAGES,
     navigate,
-    enabled: !modal && !sosOpen && !cmdOpen, // no swiping while a popup is open
+    enabled: !modal && !sosOpen && !cmdOpen,
   });
 
   useEffect(() => {
@@ -276,7 +212,7 @@ export default function App() {
         }
       );
       cloudSaveQueue.current = saveResult.then(() => undefined);
-      if (await saveResult && !cancelled) {
+      if ((await saveResult) && !cancelled) {
         clearLegacyState();
         setCloudStatus("saved");
       }
@@ -297,7 +233,6 @@ export default function App() {
       ?.setAttribute("content", dark ? "dark" : "light");
   }, [dark]);
 
-  /* Auto-detect midnight rollover so 'today' stays accurate */
   useEffect(() => {
     const id = window.setInterval(() => {
       const nowISO = todayISO();
@@ -312,7 +247,6 @@ export default function App() {
     return () => window.clearInterval(id);
   }, []);
 
-  /* Global keyboard shortcuts: Ctrl/Cmd+K (Command Palette) & Alt+S (Urge SOS) */
   useEffect(() => {
     const onKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -341,8 +275,8 @@ export default function App() {
       const saved = questData;
       const rewardHistory =
         saved.dailyWinRewards &&
-          typeof saved.dailyWinRewards === "object" &&
-          !Array.isArray(saved.dailyWinRewards)
+        typeof saved.dailyWinRewards === "object" &&
+        !Array.isArray(saved.dailyWinRewards)
           ? saved.dailyWinRewards
           : {};
       const todayRewards = Array.isArray(rewardHistory[today])
@@ -351,15 +285,13 @@ export default function App() {
 
       if (todayRewards.includes(source)) {
         triggerCompletionFeedback("tick");
-        notify(`${label} complete — XP for this win is already claimed.`);
+        notify(`${label} complete`);
         return;
       }
 
       if (todayRewards.length * DAILY_WIN_XP >= DAILY_WIN_XP_CAP) {
         triggerCompletionFeedback("tick");
-        notify(
-          `${label} complete — today's bonus XP is earned. Keep going at your own pace.`
-        );
+        notify(`${label} complete`);
         return;
       }
 
@@ -379,8 +311,8 @@ export default function App() {
       triggerCompletionFeedback(leveledUp ? "levelUp" : "success");
       notify(
         leveledUp
-          ? `Level ${Math.floor(nextXP / 100) + 1} unlocked! +${DAILY_WIN_XP} XP · ${label}`
-          : `+${DAILY_WIN_XP} XP earned · ${label}`
+          ? `Level ${Math.floor(nextXP / 100) + 1} unlocked! +${DAILY_WIN_XP} XP`
+          : `+${DAILY_WIN_XP} XP · ${label}`
       );
     },
     [notify, questData, today]
@@ -450,13 +382,13 @@ export default function App() {
         : [{ id: uid(), createdAt: Date.now(), ...record }, ...arr]
     );
     setModal(null);
-    notify(id ? "Changes queued for cloud sync" : "Added · syncing to cloud");
+    notify(id ? "Updated" : "Added");
   };
 
   const removeRecord = (key, id) => {
-    if (window.confirm("Delete this item? This cannot be undone.")) {
+    if (window.confirm("Delete this item?")) {
       update(key, (arr) => arr.filter((x) => x.id !== id));
-      notify("Item deleted");
+      notify("Deleted");
     }
   };
 
@@ -505,7 +437,7 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `day-by-day-comeback90-backup-${today}.json`;
+    a.download = `comeback90-backup-${today}.json`;
     a.click();
     URL.revokeObjectURL(url);
     notify("Backup exported");
@@ -517,13 +449,9 @@ export default function App() {
     reader.onload = () => {
       try {
         const parsed = JSON.parse(reader.result);
-        if (!parsed || typeof parsed !== "object") {
-          throw new Error("Invalid JSON");
-        }
+        if (!parsed || typeof parsed !== "object") throw new Error("Invalid JSON");
         const importedData =
-          parsed.data && typeof parsed.data === "object"
-            ? parsed.data
-            : parsed;
+          parsed.data && typeof parsed.data === "object" ? parsed.data : parsed;
         const def = createInitialData();
         setData((old) => ({
           ...def,
@@ -546,20 +474,16 @@ export default function App() {
         if (parsed.questData && typeof parsed.questData === "object") {
           setQuestData(mergeQuestData(parsed.questData));
         }
-        notify("Backup restored safely");
+        notify("Backup restored");
       } catch {
-        notify("That backup file is not valid");
+        notify("Invalid backup file");
       }
     };
     reader.readAsText(file);
   };
 
   const resetAll = () => {
-    if (
-      window.confirm(
-        "Delete all saved data from the cloud? Export a backup first if you may need it."
-      )
-    ) {
+    if (window.confirm("Delete all saved data from the cloud?")) {
       setData(createInitialData());
       setQuestData(createInitialQuestData());
       setPage("Today");
@@ -567,9 +491,8 @@ export default function App() {
     }
   };
 
-  /* Quick Command Palette Items */
   const commandItems = useMemo(() => {
-    const navActions = NAV.map(([name, icon, desc]) => ({
+    const navActions = CLEAN_NAV.map(([name, icon, desc]) => ({
       id: `nav-${name}`,
       title: `Go to ${name}`,
       sub: desc,
@@ -584,7 +507,7 @@ export default function App() {
       {
         id: "act-sos",
         title: dm("Launch 10-Min Urge SOS"),
-        sub: "Emergency breathing, grounding & wave timer",
+        sub: "Emergency breathing & wave timer",
         icon: "🛡",
         run: () => {
           setCmdOpen(false);
@@ -613,8 +536,8 @@ export default function App() {
       },
       {
         id: "act-mood",
-        title: "Log Mood & Energy Check-in",
-        sub: "Record today's emotional weather (1–5)",
+        title: "Log Mood Check-in",
+        sub: "Record today's mood (1–5)",
         icon: "♡",
         run: () => {
           setCmdOpen(false);
@@ -623,22 +546,12 @@ export default function App() {
       },
       {
         id: "act-journal",
-        title: "Write a Journal Reflection",
-        sub: "Private reflection & gratitude entry",
+        title: "Write a Journal Entry",
+        sub: "Quick reflection",
         icon: "▤",
         run: () => {
           setCmdOpen(false);
           startModal("journal");
-        },
-      },
-      {
-        id: "act-goal",
-        title: "Create a 90-Day Goal",
-        sub: "Set a target with milestones",
-        icon: "⚑",
-        run: () => {
-          setCmdOpen(false);
-          startModal("goal");
         },
       },
       {
@@ -653,22 +566,9 @@ export default function App() {
           setCmdOpen(false);
           notify(
             !data.badDayMode
-              ? "Bad Day Mode ON: Focus on 3 basics today"
+              ? "Bad Day Mode ON: 3 basics only"
               : "Full 100-pt mode restored"
           );
-        },
-      },
-      {
-        id: "act-discreet",
-        title: p.discreet
-          ? "Disable Discreet Privacy Labels"
-          : "Enable Discreet Privacy Labels",
-        sub: "Mask sensitive habit names in public",
-        icon: "👁",
-        run: () => {
-          updateProfile({ discreet: !p.discreet });
-          setCmdOpen(false);
-          notify(!p.discreet ? "Discreet mode enabled" : "Standard labels on");
         },
       },
     ];
@@ -681,7 +581,7 @@ export default function App() {
         item.title.toLowerCase().includes(q) ||
         item.sub.toLowerCase().includes(q)
     );
-  }, [cmdQuery, data.badDayMode, p.discreet, todayMood, dm, notify, updateProfile]);
+  }, [cmdQuery, data.badDayMode, todayMood, dm, notify]);
 
   const renderModal = () => {
     if (!modal) return null;
@@ -696,7 +596,7 @@ export default function App() {
           onSave={(nextProfile) => {
             updateProfile(nextProfile);
             close();
-            notify("Profile & 90-day preferences updated");
+            notify("Profile updated");
           }}
         />
       );
@@ -746,22 +646,22 @@ export default function App() {
               a.map((r) =>
                 r.id === item.id
                   ? {
-                    ...r,
-                    steps: [
-                      ...(r.steps || []),
-                      {
-                        id: uid(),
-                        title: v.stepTitle,
-                        instructions: v.instructions || "",
-                        duration: v.duration || "",
-                      },
-                    ],
-                  }
+                      ...r,
+                      steps: [
+                        ...(r.steps || []),
+                        {
+                          id: uid(),
+                          title: v.stepTitle,
+                          instructions: v.instructions || "",
+                          duration: v.duration || "",
+                        },
+                      ],
+                    }
                   : r
               )
             );
             setModal(null);
-            notify("Routine step added");
+            notify("Step added");
             return;
           }
           if (type === "milestone") {
@@ -793,18 +693,18 @@ export default function App() {
               ...v,
               ...(type === "habit"
                 ? {
-                  doneDate: item?.doneDate || "",
-                  archived: item?.archived || false,
-                }
+                    doneDate: item?.doneDate || "",
+                    archived: item?.archived || false,
+                  }
                 : {}),
               ...(type === "task"
                 ? { done: item?.done || false, archived: item?.archived || false }
                 : {}),
               ...(type === "goal"
                 ? {
-                  progress: item?.progress || 0,
-                  archived: item?.archived || false,
-                }
+                    progress: item?.progress || 0,
+                    archived: item?.archived || false,
+                  }
                 : {}),
               ...(type === "routine"
                 ? { steps: item?.steps || [], logs: item?.logs || [] }
@@ -825,12 +725,7 @@ export default function App() {
         return form(
           "habits",
           [
-            {
-              name: "name",
-              label: "Habit name",
-              required: true,
-              placeholder: "e.g. Read 10 pages",
-            },
+            { name: "name", label: "Habit name", required: true, placeholder: "e.g. Read 10 pages" },
             {
               name: "kind",
               label: "Type",
@@ -841,16 +736,7 @@ export default function App() {
               ],
               defaultValue: "build",
             },
-            {
-              name: "category",
-              label: "Category",
-              placeholder: "Mind, body, learning…",
-            },
-            {
-              name: "target",
-              label: "Daily target",
-              placeholder: "e.g. 20 minutes",
-            },
+            { name: "target", label: "Daily target", placeholder: "e.g. 20 minutes" },
             {
               name: "schedule",
               label: "Schedule",
@@ -869,32 +755,16 @@ export default function App() {
         return form(
           "tasks",
           [
-            {
-              name: "title",
-              label: "Task",
-              required: true,
-              placeholder: "What matters today?",
-            },
-            {
-              name: "notes",
-              label: "Notes",
-              type: "textarea",
-              placeholder: "Optional details",
-            },
-            {
-              name: "due",
-              label: "Due date",
-              type: "date",
-              defaultValue: today,
-            },
+            { name: "title", label: "Task", required: true, placeholder: "What matters today?" },
+            { name: "due", label: "Due date", type: "date", defaultValue: today },
             {
               name: "priority",
               label: "Priority",
               type: "select",
               options: [
-                ["low", "Low"],
                 ["normal", "Normal"],
                 ["high", "High"],
+                ["low", "Low"],
               ],
               defaultValue: "normal",
             },
@@ -905,23 +775,17 @@ export default function App() {
         return form(
           "moods",
           [
-            {
-              name: "date",
-              label: "Date",
-              type: "date",
-              defaultValue: today,
-              required: true,
-            },
+            { name: "date", label: "Date", type: "date", defaultValue: today, required: true },
             {
               name: "score",
               label: "How are you feeling?",
               type: "select",
               options: [
-                ["1", "Very low"],
-                ["2", "Low"],
-                ["3", "Okay"],
-                ["4", "Good"],
-                ["5", "Great"],
+                ["1", "1 · Very low"],
+                ["2", "2 · Low"],
+                ["3", "3 · Okay"],
+                ["4", "4 · Good"],
+                ["5", "5 · Great"],
               ],
               defaultValue: "3",
             },
@@ -930,33 +794,15 @@ export default function App() {
               label: "Energy (1–5)",
               type: "select",
               options: [
-                ["1", "1 · Very low"],
+                ["1", "1"],
                 ["2", "2"],
-                ["3", "3 · Medium"],
+                ["3", "3"],
                 ["4", "4"],
-                ["5", "5 · High"],
+                ["5", "5"],
               ],
               defaultValue: "3",
             },
-            {
-              name: "stress",
-              label: "Stress (1–5)",
-              type: "select",
-              options: [
-                ["1", "1 · Very low"],
-                ["2", "2"],
-                ["3", "3 · Medium"],
-                ["4", "4"],
-                ["5", "5 · High"],
-              ],
-              defaultValue: "3",
-            },
-            {
-              name: "note",
-              label: "A note to yourself",
-              type: "textarea",
-              placeholder: "What might be influencing your mood?",
-            },
+            { name: "note", label: "Quick note", type: "textarea" },
           ],
           "Mood check-in"
         );
@@ -964,24 +810,10 @@ export default function App() {
         return form(
           "goals",
           [
-            {
-              name: "title",
-              label: "Goal title",
-              required: true,
-              placeholder: "e.g. Build a consistent study routine",
-            },
-            {
-              name: "why",
-              label: "Why it matters",
-              type: "textarea",
-              placeholder: "What will this make possible?",
-            },
-            {
-              name: "target",
-              label: "Target (optional)",
-              placeholder: "e.g. 90",
-            },
-            { name: "unit", label: "Unit", placeholder: "days, hours, kg…" },
+            { name: "title", label: "Goal title", required: true, placeholder: "e.g. Complete 60 workouts in 90 days" },
+            { name: "why", label: "Why it matters", placeholder: "Short reason" },
+            { name: "target", label: "Target number", placeholder: "e.g. 60" },
+            { name: "unit", label: "Unit", placeholder: "workouts, hours, kg…" },
             { name: "due", label: "Target date", type: "date" },
           ],
           "Create a goal"
@@ -990,12 +822,7 @@ export default function App() {
         return form(
           "milestones",
           [
-            {
-              name: "title",
-              label: "Milestone",
-              required: true,
-              placeholder: "A meaningful next step",
-            },
+            { name: "title", label: "Milestone", required: true },
             { name: "due", label: "Target date", type: "date" },
           ],
           `Add milestone · ${item?.title || "goal"}`
@@ -1004,16 +831,8 @@ export default function App() {
         return form(
           "measurements",
           [
-            {
-              name: "value",
-              label: `Current measurement${item?.unit ? ` (${item.unit})` : ""
-                }`,
-              type: "number",
-              required: true,
-              placeholder: "Enter a number",
-            },
+            { name: "value", label: `Current value (${item?.unit || "units"})`, type: "number", required: true },
             { name: "date", label: "Date", type: "date", defaultValue: today },
-            { name: "note", label: "Note", type: "textarea" },
           ],
           `Log progress · ${item?.title || "goal"}`
         );
@@ -1022,25 +841,9 @@ export default function App() {
           "journals",
           [
             { name: "date", label: "Date", type: "date", defaultValue: today },
-            {
-              name: "title",
-              label: "Entry title",
-              required: true,
-              placeholder: "A few words about today",
-            },
-            {
-              name: "content",
-              label: "What felt important today?",
-              type: "textarea",
-              required: true,
-              placeholder: "There is no right way to write…",
-            },
-            {
-              name: "gratitude",
-              label: "One thing I appreciate",
-              type: "textarea",
-              placeholder: "Small things count.",
-            },
+            { name: "title", label: "Title", required: true, placeholder: "Today's highlight" },
+            { name: "content", label: "Reflection", type: "textarea", required: true },
+            { name: "gratitude", label: "One thing I appreciate", placeholder: "Optional" },
           ],
           "Write a reflection"
         );
@@ -1048,149 +851,40 @@ export default function App() {
         return form(
           "routines",
           [
-            {
-              name: "name",
-              label: "Routine name",
-              required: true,
-              placeholder: "e.g. Evening wind-down",
-            },
+            { name: "name", label: "Routine name", required: true },
             {
               name: "category",
               label: "Category",
               type: "select",
               options: [
                 ["face", "Face"],
-                ["hair", "Hair"],
                 ["body", "Body"],
                 ["sleep", "Sleep"],
-                ["movement", "Movement"],
-                ["nutrition", "Nutrition"],
                 ["other", "Other"],
               ],
               defaultValue: "body",
             },
-            { name: "description", label: "Description", type: "textarea" },
-            {
-              name: "schedule",
-              label: "Schedule",
-              type: "select",
-              options: [
-                ["daily", "Daily"],
-                ["weekly", "Weekly"],
-                ["flexible", "Flexible"],
-              ],
-              defaultValue: "daily",
-            },
           ],
-          "Create a care routine"
+          "Create routine"
         );
       case "metric":
         return form(
           "metrics",
           [
-            {
-              name: "name",
-              label: "Indicator name",
-              required: true,
-              placeholder: "e.g. Sleep duration",
-            },
-            {
-              name: "category",
-              label: "Category",
-              type: "select",
-              options: [
-                ["sleep", "Sleep"],
-                ["movement", "Movement"],
-                ["nutrition", "Nutrition"],
-                ["body", "Body"],
-                ["skin", "Skin / face"],
-                ["other", "Other"],
-              ],
-              defaultValue: "sleep",
-            },
-            {
-              name: "unit",
-              label: "Unit",
-              required: true,
-              placeholder: "hours, glasses, grams…",
-            },
-            { name: "target", label: "Optional target", type: "number" },
-            { name: "description", label: "Notes", type: "textarea" },
+            { name: "name", label: "Metric name", required: true },
+            { name: "unit", label: "Unit", required: true },
+            { name: "target", label: "Target", type: "number" },
           ],
-          "Add a measurable indicator"
+          "Add metric"
         );
       case "step":
         return form(
           "routines",
           [
-            {
-              name: "stepTitle",
-              label: "Step name",
-              required: true,
-              placeholder: "e.g. Cleanse gently",
-            },
-            { name: "instructions", label: "Instructions", type: "textarea" },
+            { name: "stepTitle", label: "Step name", required: true },
             { name: "duration", label: "Duration", placeholder: "e.g. 2 min" },
           ],
           `Add step · ${item?.name || "routine"}`
-        );
-      case "reset":
-        return form(
-          "resetLogs",
-          [
-            {
-              name: "behavior",
-              label: "Behavior / urge label",
-              required: true,
-              placeholder: "Use a label you feel comfortable with",
-            },
-            {
-              name: "goal",
-              label: "Your intention",
-              type: "select",
-              options: [
-                ["reduce", "Reduce"],
-                ["stop", "Stop"],
-              ],
-              defaultValue: "reduce",
-            },
-            { name: "date", label: "Date", type: "date", defaultValue: today },
-            {
-              name: "intensity",
-              label: "Urge intensity (0–10)",
-              type: "number",
-              defaultValue: "5",
-            },
-            {
-              name: "trigger",
-              label: "Trigger (optional)",
-              type: "textarea",
-              placeholder: "What was happening before the urge?",
-            },
-            {
-              name: "response",
-              label: "What did you do?",
-              type: "textarea",
-              placeholder: "Pause, walk, change environment…",
-            },
-            {
-              name: "outcome",
-              label: "Outcome",
-              type: "select",
-              options: [
-                ["urge_passed", "Urge passed"],
-                ["alternative_chosen", "Alternative chosen"],
-                ["behavior_occurred", "Behavior occurred"],
-              ],
-              defaultValue: "urge_passed",
-            },
-            {
-              name: "reflection",
-              label: "Reflection (optional)",
-              type: "textarea",
-            },
-          ],
-          "Private reset check-in"
         );
       default:
         return null;
@@ -1262,7 +956,7 @@ export default function App() {
                 update("habits", (a) =>
                   a.map((x) => (x.id === id ? { ...x, archived: true } : x))
                 );
-                notify("Habit archived; history kept");
+                notify("Habit archived");
               } else {
                 removeRecord("habits", id);
               }
@@ -1271,23 +965,13 @@ export default function App() {
             setShowArchived={setShowArchived}
             query={query}
             setQuery={setQuery}
-            onOpenSOS={() => setSosOpen(true)}
           />
         );
       case "Quest":
+      case "Rank":
         return (
           <QuestPage
             data={data}
-            game={questData}
-            setGame={setQuestData}
-            today={today}
-            onNavigate={setPage}
-            notify={notify}
-          />
-        );
-      case "Rank":
-        return (
-          <HunterRankPage
             game={questData}
             setGame={setQuestData}
             today={today}
@@ -1319,9 +1003,6 @@ export default function App() {
             today={today}
             dm={dm}
             updateDay={updateDay}
-            onAdd={() => startModal("reset")}
-            onEdit={(item) => startModal("reset", item)}
-            onDelete={(id) => removeRecord("resetLogs", id)}
             onOpenSOS={() => setSosOpen(true)}
             notify={notify}
           />
@@ -1404,13 +1085,22 @@ export default function App() {
     }
   };
 
-  const resetCount = (data.resetLogs || []).length + (data.urges || []).length;
+  const resetCount = (data.urges || []).length;
   const currentDayNum = Math.min(getDayIndex(p.startDate, today), 90);
 
   if (!cloudReady) {
     return (
       <main className="main-area cloud-loading">
-        <div className="content-wrap" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+        <div
+          className="content-wrap"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "60vh",
+          }}
+        >
           {!connectionError ? (
             <div id="splash" role="status" aria-live="polite" aria-label="Loading Comeback 90">
               <div className="sp-wrap">
@@ -1434,16 +1124,15 @@ export default function App() {
   }
 
   const cloudStatusText = {
-    connecting: "Connecting to cloud…",
-    saving: "Saving to cloud…",
-    saved: "Saved to cloud",
-    error: "Cloud save failed · changes not synced",
+    connecting: "Connecting…",
+    saving: "Saving…",
+    saved: "Saved",
+    error: "Save failed",
   }[cloudStatus];
 
   return (
     <div className={`app-shell ${dark ? "theme-dark" : ""}`}>
       <header className="site-header">
-
         <button
           type="button"
           className="logo"
@@ -1458,12 +1147,7 @@ export default function App() {
             height="36"
             aria-hidden="true"
           >
-            <rect
-              width="64"
-              height="64"
-              rx="14"
-              fill="#000000"
-            />
+            <rect width="64" height="64" rx="14" fill="#000000" />
             <path
               d="M 51 32 A 19 19 0 1 1 32 13"
               fill="none"
@@ -1479,17 +1163,12 @@ export default function App() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <circle
-              cx="21"
-              cy="43"
-              r="3"
-              fill="#ff0000"
-            />
+            <circle cx="21" cy="43" r="3" fill="#ff0000" />
           </svg>
         </button>
 
         <nav className="site-nav" aria-label="Main">
-          {NAV.map(([name, , desc]) => (
+          {CLEAN_NAV.map(([name, , desc]) => (
             <button
               type="button"
               key={name}
@@ -1513,7 +1192,7 @@ export default function App() {
           <button
             type="button"
             className="pill-outline"
-            onClick={() => setPage("Habits")}
+            onClick={() => setPage("Today")}
             title="Today's 100-Point Score & Clean Streak"
           >
             {todayBreakdown.total} pts · 🔥 {streaks.currentClean}d
@@ -1532,7 +1211,7 @@ export default function App() {
             type="button"
             className="pill-solid"
             onClick={() => startModal("profile")}
-            title="Edit Profile & 90-Day Targets"
+            title="Edit Profile & Targets"
           >
             Day {currentDayNum}/90
           </button>
@@ -1551,7 +1230,6 @@ export default function App() {
             }
             aria-label={`Switch to ${dark ? "light" : "dark"} mode`}
             aria-pressed={dark}
-            title={`Switch to ${dark ? "light" : "dark"} mode`}
           >
             {dark ? (
               <Sun size={19} strokeWidth={1.9} aria-hidden="true" />
@@ -1565,10 +1243,7 @@ export default function App() {
       <main className="main-area page-swipe">
         <div className="content-wrap">
           {data.badDayMode && (
-            <div
-              className="row-between jsx-0b70baa6"
-
-            >
+            <div className="row-between jsx-0b70baa6">
               <span className="status-pill peach-pill">
                 Bad Day Mode Active · Just finish 3 basics today (Sunlight, Phone
                 Outside, Bed on Time)
@@ -1641,7 +1316,7 @@ export default function App() {
 
       {cmdOpen && (
         <Modal
-          title="Quick Command & Navigation (Ctrl+K)"
+          title="Quick Jump (Ctrl+K)"
           onClose={() => setCmdOpen(false)}
         >
           <div className="stack-col">
@@ -1649,7 +1324,7 @@ export default function App() {
               type="search"
               className="clean-input"
               autoFocus
-              placeholder="Type a page or action (e.g. Workout, Pomodoro, SOS, Journal)..."
+              placeholder="Type a page or action..."
               value={cmdQuery}
               onChange={(e) => setCmdQuery(e.target.value)}
               onKeyDown={(e) => {
@@ -1659,15 +1334,11 @@ export default function App() {
                 }
               }}
             />
-            <div
-              className="habit-list jsx-cfef4a83"
-
-            >
+            <div className="habit-list jsx-cfef4a83">
               {commandItems.map((item) => (
                 <div
                   key={item.id}
                   className="habit-row jsx-74fa97c2"
-
                   onClick={item.run}
                 >
                   <span className="status-pill complete">{item.icon}</span>
@@ -1693,7 +1364,7 @@ export default function App() {
       )}
 
       <nav className="mobile-nav" aria-label="Mobile" ref={mobileNavRef}>
-        {NAV.map(([name, icon]) => (
+        {CLEAN_NAV.map(([name, icon]) => (
           <button
             type="button"
             key={name}
@@ -1709,4 +1380,3 @@ export default function App() {
     </div>
   );
 }
-
