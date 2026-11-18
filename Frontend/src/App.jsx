@@ -23,7 +23,6 @@ import { useSwipeNav } from "./hooks/useSwipeNav.js";
 import { TodayPage } from "./pages/TodayPage.jsx";
 import { HabitsAndTrackPage } from "./pages/HabitsAndTrackPage.jsx";
 import { QuestPage } from "./pages/QuestPage.jsx";
-import { LifestyleAndBodyPage } from "./pages/LifestyleAndBodyPage.jsx";
 import { LooksPage } from "./pages/LooksPage.jsx";
 import { ResetAndSOSPage } from "./pages/ResetAndSOSPage.jsx";
 import { GoalsAndRoadmapPage } from "./pages/GoalsAndRoadmapPage.jsx";
@@ -96,7 +95,6 @@ const ALL_PAGES = [
   "Today",
   "Habits",
   "Quest",
-  "Lifestyle",
   "Looks",
   "Reset",
   "Yoga",
@@ -275,8 +273,8 @@ export default function App() {
       const saved = questData;
       const rewardHistory =
         saved.dailyWinRewards &&
-        typeof saved.dailyWinRewards === "object" &&
-        !Array.isArray(saved.dailyWinRewards)
+          typeof saved.dailyWinRewards === "object" &&
+          !Array.isArray(saved.dailyWinRewards)
           ? saved.dailyWinRewards
           : {};
       const todayRewards = Array.isArray(rewardHistory[today])
@@ -646,17 +644,17 @@ export default function App() {
               a.map((r) =>
                 r.id === item.id
                   ? {
-                      ...r,
-                      steps: [
-                        ...(r.steps || []),
-                        {
-                          id: uid(),
-                          title: v.stepTitle,
-                          instructions: v.instructions || "",
-                          duration: v.duration || "",
-                        },
-                      ],
-                    }
+                    ...r,
+                    steps: [
+                      ...(r.steps || []),
+                      {
+                        id: uid(),
+                        title: v.stepTitle,
+                        instructions: v.instructions || "",
+                        duration: v.duration || "",
+                      },
+                    ],
+                  }
                   : r
               )
             );
@@ -693,18 +691,18 @@ export default function App() {
               ...v,
               ...(type === "habit"
                 ? {
-                    doneDate: item?.doneDate || "",
-                    archived: item?.archived || false,
-                  }
+                  doneDate: item?.doneDate || "",
+                  archived: item?.archived || false,
+                }
                 : {}),
               ...(type === "task"
                 ? { done: item?.done || false, archived: item?.archived || false }
                 : {}),
               ...(type === "goal"
                 ? {
-                    progress: item?.progress || 0,
-                    archived: item?.archived || false,
-                  }
+                  progress: item?.progress || 0,
+                  archived: item?.archived || false,
+                }
                 : {}),
               ...(type === "routine"
                 ? { steps: item?.steps || [], logs: item?.logs || [] }
@@ -975,21 +973,6 @@ export default function App() {
             game={questData}
             setGame={setQuestData}
             today={today}
-            notify={notify}
-          />
-        );
-      case "Lifestyle":
-        return (
-          <LifestyleAndBodyPage
-            data={data}
-            setData={setData}
-            updateProfile={updateProfile}
-            onAddRoutine={() => startModal("routine")}
-            onAddMetric={() => startModal("metric")}
-            onAddStep={(routine) => startModal("step", routine)}
-            onLog={(item) => startModal("lifestyleLog", item)}
-            onEdit={(item) => startModal(item.kind, item)}
-            onDelete={(key, id) => removeRecord(key, id)}
             notify={notify}
           />
         );
