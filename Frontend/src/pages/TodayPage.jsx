@@ -17,6 +17,7 @@ import {
   Heading,
   Empty,
   Progress,
+  Field,
   Stat,
   CountdownTimer,
   Heatmap90,
@@ -50,6 +51,7 @@ function TodayPage({
 }) {
   const [chartMetric, setChartMetric] = useState("score");
   const [checkTab, setCheckTab] = useState("comeback"); // comeback | custom | loops
+  const [onlyMinDay, setOnlyMinDay] = useState(false);
   const [quickTaskTitle, setQuickTaskTitle] = useState("");
   const [showInlinePomodoro, setShowInlinePomodoro] = useState(false);
 
@@ -92,9 +94,10 @@ function TodayPage({
     });
   }, [data.days, data.moods, chartMetric, today]);
 
-  const displayedScoredChecks = data.badDayMode
-    ? SCORED_CHECKS.filter((item) => MINIMUM_DAY_IDS.includes(item.id))
-    : SCORED_CHECKS;
+  const visibleScoredChecks =
+    data.badDayMode || onlyMinDay
+      ? SCORED_CHECKS.filter((item) => MINIMUM_DAY_IDS.includes(item.id))
+      : SCORED_CHECKS;
 
   const activeControlLoops = useMemo(() => {
     const activeIds = data.settings?.activeLoops || [];
@@ -102,7 +105,7 @@ function TodayPage({
   }, [data.settings?.activeLoops]);
 
   const toggleScoredCheck = (id, checked) => {
-    if (checked) onScoredCheck(id);
+    if (checked && onScoredCheck) onScoredCheck(id);
     updateDay(today, (prev) => ({
       ...prev,
       slip: id === "noPorn" && checked ? false : prev.slip,
@@ -133,35 +136,9 @@ function TodayPage({
   const targetSteps = p.targets?.steps || 8000;
   const targetWater = p.targets?.waterL || 3;
   const targetScreen = p.targets?.screenH || 3;
-
-  const addStepsQuick = (delta) => {
-    const next = Math.max(0, safeNum(todayDayObj.steps, 0) + delta);
-    updateDay(today, (prev) => ({
-      ...prev,
-      steps: next,
-      c: { ...(prev.c || {}), steps: next >= targetSteps },
-    }));
-  };
-
-  const addWaterQuick = (deltaL) => {
-    const next = +(safeNum(todayDayObj.waterL, 0) + deltaL).toFixed(2);
-    updateDay(today, (prev) => ({
-      ...prev,
-      waterL: next,
-      c: { ...(prev.c || {}), water: next >= targetWater },
-    }));
-  };
-
-  const setSleepQuick = (hrs) => {
-    updateDay(today, (prev) => ({
-      ...prev,
-      sleepH: hrs,
-      c: {
-        ...(prev.c || {}),
-        wakeOnTime: hrs >= 7 || Boolean(prev.c?.wakeOnTime),
-      },
-    }));
-  };
+  const recommendedWaterByWeight = +(
+    Math.max(45, safeNum(p.weightKg, 56)) * 0.04
+  ).toFixed(1);
 
   const handleQuickAddTask = (e) => {
     if (e) e.preventDefault();
@@ -234,7 +211,8 @@ function TodayPage({
               className="hero-link"
               onClick={() => setShowInlinePomodoro((v) => !v)}
             >
-              {showInlinePomodoro ? "Hide 25m Timer" : "Start 25m Deep Work"} <span>◈</span>
+              {showInlinePomodoro ? "Hide 25m Timer" : "Start 25m Deep Work"}{" "}
+              <span>◈</span>
             </button>
             <button
               type="button"
@@ -274,7 +252,8 @@ function TodayPage({
           <div>
             <strong>Never Miss Twice:</strong>
             <p>
-              Kal miss hua to koi baat nahi—aaj bas 3 basics (Sunlight, Phone Outside Bedroom, Bed on Time) lock kar lo.
+              Kal miss hua to koi baat nahi—aaj bas 3 basics (Sunlight, Phone
+              Outside Bedroom, Bed on Time) lock kar lo.
             </p>
           </div>
         </div>
@@ -299,7 +278,9 @@ function TodayPage({
         <Stat
           icon="✓"
           label="Habits & Tasks"
-          value={`${doneHabits + doneTasks}/${todayHabits.length + activeTasks.length}`}
+          value={`${doneHabits + doneTasks}/${
+            todayHabits.length + activeTasks.length
+          }`}
           detail={`${doneHabits} habits · ${doneTasks} tasks`}
           color="peach"
         />
@@ -307,292 +288,531 @@ function TodayPage({
           <Stat
             icon="♡"
             label="Mood"
-            value={todayMood ? `${todayMood.score}/5` : `${todayDayObj.mood || 3}/5`}
+            value={
+              todayMood ? `${todayMood.score}/5` : `${todayDayObj.mood || 3}/5`
+            }
             detail="Tap to log check-in"
             color="lavender"
           />
         </div>
       </div>
 
-      {/* ONE-TAP DAILY NUMBERS */}
+      {/* DAILY NUMBERS & BIOMETRICS (Moved from HabitsPage) */}
       <Card className="jsx-2f23af6b">
         <div className="section-head">
           <div>
-            <div className="eyebrow">ONE-TAP DAILY LOG</div>
+            <div className="eyebrow">DAILY NUMBERS &amp; BIOMETRICS</div>
             <h2>
-              Steps ({todayDayObj.steps || 0}/{targetSteps}) · Water (
-              {todayDayObj.waterL || 0}L/{targetWater}L) · Sleep (
-              {todayDayObj.sleepH || 0}h)
+              Steps, hydration, screen &amp; sleep ({fmtDate(today)})
             </h2>
+            <p>
+              Partial progress automatically calculates towards your 100-point
+              score. Use the quick-tap buttons for instant logging.
+            </p>
           </div>
+          <span className="status-pill complete">
+            Weight-based water guide: ~{recommendedWaterByWeight}L/day
+          </span>
         </div>
 
-        <div className="category-pills">
-          <button type="button" onClick={() => addStepsQuick(1000)}>
-            👟 +1k Steps
-          </button>
-          <button type="button" onClick={() => addStepsQuick(2500)}>
-            👟 +2.5k Steps
-          </button>
-          <button type="button" onClick={() => addWaterQuick(0.25)}>
-            💧 +250ml
-          </button>
-          <button type="button" onClick={() => addWaterQuick(0.5)}>
-            💧 +500ml
-          </button>
-          <button type="button" onClick={() => setSleepQuick(7.5)}>
-            ☾ 7.5h Sleep
-          </button>
-          <button
-            type="button"
-            className={todayDayObj.c?.screenUnderLimit ? "selected" : ""}
-            onClick={() =>
-              updateDay(today, (prev) => ({
-                ...prev,
-                screenH: prev.screenH || 2,
-                c: {
-                  ...(prev.c || {}),
-                  screenUnderLimit: !prev.c?.screenUnderLimit,
-                },
-              }))
-            }
-          >
-            📱 Screen ≤ {targetScreen}h (+8)
-          </button>
-          <button
-            type="button"
-            className={todayDayObj.c?.protein ? "selected" : ""}
-            onClick={() =>
-              toggleScoredCheck("protein", !Boolean(todayDayObj.c?.protein))
-            }
-          >
-            🥚 Protein Hit (+8)
-          </button>
+        <div className="form-grid four-col-grid tracker-metrics">
+          <div>
+            <Field label={`Steps (Target: ${targetSteps})`}>
+              <input
+                type="number"
+                min="0"
+                step="500"
+                value={todayDayObj.steps}
+                onChange={(e) => {
+                  const v = Math.max(0, safeNum(e.target.value, 0));
+                  updateDay(today, (prev) => ({
+                    ...prev,
+                    steps: v,
+                    c: {
+                      ...(prev.c || {}),
+                      steps: v >= targetSteps,
+                    },
+                  }));
+                }}
+              />
+            </Field>
+            <div className="jsx-0d69e4b1">
+              <Progress value={percent(todayDayObj.steps || 0, targetSteps)} />
+              <div className="category-pills jsx-0d69e4b1">
+                {[1000, 2500, targetSteps].map((val) => (
+                  <button
+                    type="button"
+                    key={val}
+                    onClick={() => {
+                      const nextSteps =
+                        val === targetSteps
+                          ? targetSteps
+                          : Math.max(0, safeNum(todayDayObj.steps, 0) + val);
+                      updateDay(today, (prev) => ({
+                        ...prev,
+                        steps: nextSteps,
+                        c: {
+                          ...(prev.c || {}),
+                          steps: nextSteps >= targetSteps,
+                        },
+                      }));
+                    }}
+                  >
+                    {val === targetSteps ? `Hit ${targetSteps}` : `+${val}`}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Field label={`Water in Litres (Target: ${targetWater}L)`}>
+              <input
+                type="number"
+                min="0"
+                step="0.25"
+                value={todayDayObj.waterL}
+                onChange={(e) => {
+                  const v = Math.max(0, safeNum(e.target.value, 0));
+                  updateDay(today, (prev) => ({
+                    ...prev,
+                    waterL: v,
+                    c: {
+                      ...(prev.c || {}),
+                      water: v >= targetWater,
+                    },
+                  }));
+                }}
+              />
+            </Field>
+            <div className="jsx-0d69e4b1">
+              <Progress value={percent(todayDayObj.waterL || 0, targetWater)} />
+              <div className="category-pills jsx-0d69e4b1">
+                {[
+                  [0.25, "+250ml"],
+                  [0.5, "+500ml"],
+                  [targetWater, `Hit ${targetWater}L`],
+                ].map(([amt, lbl]) => (
+                  <button
+                    type="button"
+                    key={lbl}
+                    onClick={() => {
+                      const nextW =
+                        amt === targetWater
+                          ? targetWater
+                          : +(
+                              safeNum(todayDayObj.waterL, 0) + Number(amt)
+                            ).toFixed(2);
+                      updateDay(today, (prev) => ({
+                        ...prev,
+                        waterL: nextW,
+                        c: {
+                          ...(prev.c || {}),
+                          water: nextW >= targetWater,
+                        },
+                      }));
+                    }}
+                  >
+                    {lbl}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Field label={`Recreational Screen (Limit ≤ ${targetScreen}h)`}>
+              <input
+                type="number"
+                min="0"
+                step="0.5"
+                value={todayDayObj.screenH}
+                onChange={(e) => {
+                  const v = Math.max(0, safeNum(e.target.value, 0));
+                  updateDay(today, (prev) => ({
+                    ...prev,
+                    screenH: v,
+                    c: {
+                      ...(prev.c || {}),
+                      screenUnderLimit: v > 0 && v <= targetScreen,
+                    },
+                  }));
+                }}
+              />
+            </Field>
+            <div className="jsx-0d69e4b1">
+              <Progress
+                value={
+                  todayDayObj.screenH > 0
+                    ? Math.min(100, percent(todayDayObj.screenH, targetScreen))
+                    : 0
+                }
+              />
+              <div className="category-pills jsx-0d69e4b1">
+                {[1, 2, targetScreen].map((hr) => (
+                  <button
+                    type="button"
+                    key={hr}
+                    onClick={() =>
+                      updateDay(today, (prev) => ({
+                        ...prev,
+                        screenH: hr,
+                        c: {
+                          ...(prev.c || {}),
+                          screenUnderLimit: hr <= targetScreen,
+                        },
+                      }))
+                    }
+                  >
+                    {hr}h logged
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Field label="Last Night's Sleep (Hours)">
+              <input
+                type="number"
+                min="0"
+                max="16"
+                step="0.5"
+                value={todayDayObj.sleepH}
+                onChange={(e) =>
+                  updateDay(today, (prev) => ({
+                    ...prev,
+                    sleepH: Math.max(0, safeNum(e.target.value, 0)),
+                  }))
+                }
+              />
+            </Field>
+            <div className="jsx-0d69e4b1">
+              <Progress value={percent(todayDayObj.sleepH || 0, 8)} />
+              <div className="category-pills jsx-0d69e4b1">
+                {[6.5, 7.5, 8].map((sh) => (
+                  <button
+                    type="button"
+                    key={sh}
+                    onClick={() =>
+                      updateDay(today, (prev) => ({
+                        ...prev,
+                        sleepH: sh,
+                        c: {
+                          ...(prev.c || {}),
+                          wakeOnTime: sh >= 7 || Boolean(prev.c?.wakeOnTime),
+                        },
+                      }))
+                    }
+                  >
+                    {sh}h
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </Card>
 
-      {/* MAIN WORKSPACE: CHECK-INS + TASKS */}
+      {/* 100-POINT COMEBACK SCORE ENGINE (Moved from HabitsPage) */}
+      <Card className="jsx-2f23af6b">
+        <div className="section-head">
+          <div>
+            <div className="eyebrow">
+              100-POINT COMEBACK SCORE ENGINE ({fmtDate(today)})
+            </div>
+            <h2>
+              Live 4-Pillar Score Breakdown: {todayBreakdown.total}/100 pts
+            </h2>
+            <p>
+              Low energy ya exam load wale din sirf 3 Minimum Day basics poore
+              karo taaki momentum kabhi zero na ho.{" "}
+              {isRestDay
+                ? "(Rest day: 20-min walk counts.)"
+                : "(Workout day: log your session.)"}
+            </p>
+          </div>
+          <div className="heading-btn-group">
+            <Button
+              kind={onlyMinDay ? "primary" : "secondary"}
+              onClick={() => setOnlyMinDay((v) => !v)}
+            >
+              {onlyMinDay
+                ? "Showing 3 Minimum Basics"
+                : `Minimum Day Filter (${minDayDoneCount}/3)`}
+            </Button>
+            {minDayDoneCount < 3 && (
+              <Button onClick={lockThreeMinimumBasics}>
+                ✓ Lock 3 Minimum Basics (+19 pts)
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="stats-grid jsx-29b7980a">
+          <Stat
+            icon="🛡"
+            label="1. Clean Streak Core"
+            value={`${todayBreakdown.coreClean}/20 pts`}
+            detail={
+              todayDayObj.c?.noPorn && !todayDayObj.slip
+                ? "Clean day locked in"
+                : "Tap 'No porn today' below"
+            }
+            color="sage"
+          />
+          <Stat
+            icon="💪"
+            label="2. Workout, Steps & Fuel"
+            value={`${todayBreakdown.fitnessBody}/32 pts`}
+            detail="Workout (12) · Steps (8) · Protein (8) · Water (4)"
+            color="peach"
+          />
+          <Stat
+            icon="☾"
+            label="3. Sleep & Screen Anchor"
+            value={`${todayBreakdown.sleepScreen}/35 pts`}
+            detail="Wake (8) · Sun (8) · Screen (8) · Bed (6) · Phone (5)"
+            color="blue"
+          />
+          <Stat
+            icon="✦"
+            label="4. Mind, Skincare & Social"
+            value={`${todayBreakdown.mindCare}/13 pts`}
+            detail="Skincare (5) · Brave Social (4) · Journal (4)"
+            color="lavender"
+          />
+        </div>
+
+        <div className="tabs" style={{ marginBottom: "12px" }}>
+          <button
+            type="button"
+            className={checkTab === "comeback" ? "selected" : ""}
+            onClick={() => setCheckTab("comeback")}
+          >
+            Core ({visibleScoredChecks.length})
+          </button>
+          <button
+            type="button"
+            className={checkTab === "custom" ? "selected" : ""}
+            onClick={() => setCheckTab("custom")}
+          >
+            Custom ({todayHabits.length})
+          </button>
+          {activeControlLoops.length > 0 && (
+            <button
+              type="button"
+              className={checkTab === "loops" ? "selected" : ""}
+              onClick={() => setCheckTab("loops")}
+            >
+              Loops ({activeControlLoops.length})
+            </button>
+          )}
+        </div>
+
+        {checkTab === "comeback" ? (
+          <div className="habit-list">
+            {visibleScoredChecks.map((item) => {
+              const checked = Boolean(
+                todayDayObj.c && todayDayObj.c[item.id]
+              );
+              const isMin = MINIMUM_DAY_IDS.includes(item.id);
+              return (
+                <div
+                  className={`habit-row ${checked ? "checked" : ""}`}
+                  key={item.id}
+                >
+                  <button
+                    type="button"
+                    className="check-circle"
+                    aria-label={`${checked ? "Uncheck" : "Complete"} ${
+                      item.title
+                    }`}
+                    aria-pressed={checked}
+                    onClick={() => toggleScoredCheck(item.id, !checked)}
+                  >
+                    {checked ? "✓" : ""}
+                  </button>
+                  <div className="habit-info">
+                    <strong>
+                      {item.id === "workout" && isRestDay
+                        ? item.restTitle
+                        : dm(item.title)}{" "}
+                      {isMin && (
+                        <span className="status-pill peach-pill jsx-8cdcd88b">
+                          Minimum Day Basic
+                        </span>
+                      )}
+                    </strong>
+                    <small>{dm(item.sub)}</small>
+                  </div>
+                  <span className={`status-pill ${checked ? "complete" : ""}`}>
+                    +{item.weight} pts
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        ) : checkTab === "custom" ? (
+          todayHabits.length ? (
+            <div className="habit-list">
+              {todayHabits.map((h) => (
+                <div
+                  className={`habit-row ${h.doneDate === today ? "checked" : ""}`}
+                  key={h.id}
+                >
+                  <button
+                    type="button"
+                    className="check-circle"
+                    onClick={() => onHabit(h)}
+                  >
+                    {h.doneDate === today ? "✓" : ""}
+                  </button>
+                  <div className="habit-info">
+                    <strong>{h.name}</strong>
+                    <small>{h.target || "Daily habit"}</small>
+                  </div>
+                  <span
+                    className={`status-pill ${
+                      h.doneDate === today ? "complete" : ""
+                    }`}
+                  >
+                    {h.doneDate === today ? "Done" : "Pending"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <Empty
+              icon="✳"
+              title="No custom habits"
+              description="Add a simple daily habit."
+              action={
+                <Button kind="primary" onClick={onAddHabit}>
+                  ＋ Add habit
+                </Button>
+              }
+            />
+          )
+        ) : (
+          <div className="habit-list">
+            {activeControlLoops.map((loop) => {
+              const checked = Boolean(
+                todayDayObj.loops && todayDayObj.loops[loop.id]
+              );
+              return (
+                <div
+                  className={`habit-row ${checked ? "checked" : ""}`}
+                  key={loop.id}
+                >
+                  <button
+                    type="button"
+                    className="check-circle"
+                    onClick={() => toggleControlLoopToday(loop.id)}
+                  >
+                    {checked ? "✓" : ""}
+                  </button>
+                  <div className="habit-info">
+                    <strong>{dm(loop.title)}</strong>
+                    <small>{dm(loop.sub)}</small>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="panel-foot">
+          <div>
+            <span className="foot-dot" />
+            <span>Today&apos;s Score: {todayBreakdown.total}/100</span>
+          </div>
+          <Progress value={todayBreakdown.total} />
+        </div>
+      </Card>
+
+      {/* MAIN WORKSPACE: TASKS + 90-DAY CONSISTENCY */}
       <div className="dashboard-grid">
-        <Card className="habits-panel">
+        <Card className="tasks-panel">
           <div className="section-head">
             <div>
-              <div className="eyebrow">DAILY CHECK-INS</div>
-              <h2>Today&apos;s Core</h2>
-              <p>
-                {isRestDay
-                  ? "Rest day: 20-min walk counts."
-                  : "Workout day: log your session."}
-              </p>
+              <div className="eyebrow">FOCUS</div>
+              <h2>Today&apos;s tasks</h2>
             </div>
-            <div className="tabs">
-              <button
-                type="button"
-                className={checkTab === "comeback" ? "selected" : ""}
-                onClick={() => setCheckTab("comeback")}
-              >
-                Core ({displayedScoredChecks.length})
-              </button>
-              <button
-                type="button"
-                className={checkTab === "custom" ? "selected" : ""}
-                onClick={() => setCheckTab("custom")}
-              >
-                Custom ({todayHabits.length})
-              </button>
-              <button
-                type="button"
-                className={checkTab === "loops" ? "selected" : ""}
-                onClick={() => setCheckTab("loops")}
-              >
-                Guards ({activeControlLoops.length})
-              </button>
-            </div>
+            <span className="status-pill">
+              +{dailyWinXP}/{dailyWinXPCap} XP
+            </span>
           </div>
 
-          {checkTab === "comeback" ? (
-            <div className="habit-list">
-              {displayedScoredChecks.map((item) => {
-                const checked = Boolean(todayDayObj.c && todayDayObj.c[item.id]);
-                return (
-                  <div
-                    className={`habit-row ${checked ? "checked" : ""}`}
-                    key={item.id}
+          <form
+            className="inline-add-row jsx-5beb8fbe"
+            onSubmit={handleQuickAddTask}
+          >
+            <input
+              type="text"
+              className="clean-input"
+              placeholder="Quick add task & press Enter..."
+              value={quickTaskTitle}
+              onChange={(e) => setQuickTaskTitle(e.target.value)}
+            />
+            <Button kind="primary" onClick={handleQuickAddTask}>
+              Add
+            </Button>
+          </form>
+
+          {activeTasks.length ? (
+            <div className="task-list">
+              {activeTasks.slice(0, 6).map((t) => (
+                <div
+                  className={`task-row ${t.done ? "task-done" : ""}`}
+                  key={t.id}
+                >
+                  <button
+                    type="button"
+                    className={`task-check ${t.done ? "on" : ""}`}
+                    onClick={() => onTask(t.id)}
                   >
-                    <button
-                      type="button"
-                      className="check-circle"
-                      onClick={() => toggleScoredCheck(item.id, !checked)}
-                    >
-                      {checked ? "✓" : ""}
-                    </button>
-                    <div className="habit-info">
-                      <strong>
-                        {item.id === "workout" && isRestDay
-                          ? item.restTitle
-                          : dm(item.title)}
-                      </strong>
-                      <small>{dm(item.sub)}</small>
-                    </div>
-                    <span className={`status-pill ${checked ? "complete" : ""}`}>
-                      +{item.weight}
-                    </span>
+                    {t.done ? "✓" : ""}
+                  </button>
+                  <div className="task-main">
+                    <strong>{t.title}</strong>
+                    <small>{t.due ? fmtDate(t.due) : "Today"}</small>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
-          ) : checkTab === "custom" ? (
-            todayHabits.length ? (
-              <div className="habit-list">
-                {todayHabits.map((h) => (
-                  <div
-                    className={`habit-row ${h.doneDate === today ? "checked" : ""}`}
-                    key={h.id}
-                  >
-                    <button
-                      type="button"
-                      className="check-circle"
-                      onClick={() => onHabit(h)}
-                    >
-                      {h.doneDate === today ? "✓" : ""}
-                    </button>
-                    <div className="habit-info">
-                      <strong>{h.name}</strong>
-                      <small>{h.target || "Daily habit"}</small>
-                    </div>
-                    <span
-                      className={`status-pill ${h.doneDate === today ? "complete" : ""}`}
-                    >
-                      {h.doneDate === today ? "Done" : "Pending"}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <Empty
-                icon="✳"
-                title="No custom habits"
-                description="Add a simple daily habit."
-                action={
-                  <Button kind="primary" onClick={onAddHabit}>
-                    ＋ Add habit
-                  </Button>
-                }
-              />
-            )
           ) : (
-            <div className="habit-list">
-              {activeControlLoops.map((loop) => {
-                const checked = Boolean(todayDayObj.loops && todayDayObj.loops[loop.id]);
-                return (
-                  <div
-                    className={`habit-row ${checked ? "checked" : ""}`}
-                    key={loop.id}
-                  >
-                    <button
-                      type="button"
-                      className="check-circle"
-                      onClick={() => toggleControlLoopToday(loop.id)}
-                    >
-                      {checked ? "✓" : ""}
-                    </button>
-                    <div className="habit-info">
-                      <strong>{dm(loop.title)}</strong>
-                      <small>{dm(loop.sub)}</small>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <Empty
+              icon="↗"
+              title="No tasks yet"
+              description="Add 1–3 clear priorities for today."
+              action={<Button onClick={onAddTask}>＋ Add task</Button>}
+            />
           )}
-
-          <div className="panel-foot">
-            <div>
-              <span className="foot-dot" />
-              <span>Today&apos;s Score: {todayBreakdown.total}/100</span>
-            </div>
-            <Progress value={todayBreakdown.total} />
-          </div>
         </Card>
 
-        <div className="stack-col">
-          <Card className="tasks-panel">
-            <div className="section-head">
-              <div>
-                <div className="eyebrow">FOCUS</div>
-                <h2>Today&apos;s tasks</h2>
-              </div>
-              <span className="status-pill">
-                +{dailyWinXP}/{dailyWinXPCap} XP
-              </span>
+        <Card className="goals-card">
+          <div className="section-head">
+            <div>
+              <div className="eyebrow">90-DAY CONSISTENCY</div>
+              <h2>Your 90-day grid</h2>
             </div>
-
-            <form className="inline-add-row jsx-5beb8fbe" onSubmit={handleQuickAddTask}>
-              <input
-                type="text"
-                className="clean-input"
-                placeholder="Quick add task & press Enter..."
-                value={quickTaskTitle}
-                onChange={(e) => setQuickTaskTitle(e.target.value)}
-              />
-              <Button kind="primary" onClick={handleQuickAddTask}>
-                Add
-              </Button>
-            </form>
-
-            {activeTasks.length ? (
-              <div className="task-list">
-                {activeTasks.slice(0, 6).map((t) => (
-                  <div
-                    className={`task-row ${t.done ? "task-done" : ""}`}
-                    key={t.id}
-                  >
-                    <button
-                      type="button"
-                      className={`task-check ${t.done ? "on" : ""}`}
-                      onClick={() => onTask(t.id)}
-                    >
-                      {t.done ? "✓" : ""}
-                    </button>
-                    <div className="task-main">
-                      <strong>{t.title}</strong>
-                      <small>{t.due ? fmtDate(t.due) : "Today"}</small>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <Empty
-                icon="↗"
-                title="No tasks yet"
-                description="Add 1–3 clear priorities for today."
-                action={<Button onClick={onAddTask}>＋ Add task</Button>}
-              />
-            )}
-          </Card>
-
-          <Card className="goals-card">
-            <div className="section-head">
-              <div>
-                <div className="eyebrow">90-DAY CONSISTENCY</div>
-                <h2>Your 90-day grid</h2>
-              </div>
-              <button
-                type="button"
-                className="text-link"
-                onClick={() => onNavigate("Habits")}
-              >
-                Schedule &amp; Matrix ↗
-              </button>
-            </div>
-            <Heatmap90
-              startDate={p.startDate}
-              daysMap={data.days}
-              profile={p}
-              selectedDate={selectedISO}
-              onSelectDate={(iso) => setSelectedISO(iso)}
-            />
-          </Card>
-        </div>
+            <button
+              type="button"
+              className="text-link"
+              onClick={() => onNavigate("Habits")}
+            >
+              Schedule &amp; Matrix ↗
+            </button>
+          </div>
+          <Heatmap90
+            startDate={p.startDate}
+            daysMap={data.days}
+            profile={p}
+            selectedDate={selectedISO}
+            onSelectDate={(iso) => setSelectedISO(iso)}
+          />
+        </Card>
       </div>
 
       {/* SINGLE 14-DAY TREND CHART */}
@@ -604,6 +824,7 @@ function TodayPage({
           </div>
           <div className="tabs">
             {[
+              ["score", "Score"],
               ["mood", "Mood"],
               ["sleep", "Sleep"],
               ["steps", "Steps"],
@@ -622,14 +843,18 @@ function TodayPage({
         <ModernAreaChart
           data={chartSeries}
           maxVal={
-            chartMetric === "mood"
+            chartMetric === "score"
+              ? 100
+              : chartMetric === "mood"
               ? 5
               : chartMetric === "sleep"
               ? 10
               : p.targets?.steps || 8000
           }
           unit={
-            chartMetric === "mood"
+            chartMetric === "score"
+              ? " pts"
+              : chartMetric === "mood"
               ? "/5"
               : chartMetric === "sleep"
               ? " h"

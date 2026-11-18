@@ -5,8 +5,6 @@ import {
   getWeekdayShort,
   fmtDate,
   percent,
-  safeNum,
-  MINIMUM_DAY_IDS,
   SCORED_CHECKS,
   LIFE_BASICS,
   CONTROL_LOOPS,
@@ -19,10 +17,7 @@ import {
   Button,
   Card,
   Heading,
-  Empty,
-  Progress,
   Field,
-  Stat,
 } from "../shared";
 
 const HABIT_STACK_PRESETS = [
@@ -68,7 +63,6 @@ function HabitsAndTrackPage({
   const [viewMode, setViewMode] = useState("tracker"); // tracker | custom | matrix | schedule
   const [filter, setFilter] = useState("all");
   const [newWin, setNewWin] = useState("");
-  const [onlyMinDay, setOnlyMinDay] = useState(false);
   const [stackInput, setStackInput] = useState({
     anchor: "",
     action: "",
@@ -145,29 +139,6 @@ function HabitsAndTrackPage({
         [itemId]: val,
       },
     }));
-  };
-
-  const toggleCoreCheck = (checkId) => {
-    const currentVal = Boolean(dayObj.c && dayObj.c[checkId]);
-    const nextVal = !currentVal;
-    updateDay(selectedISO, (prev) => ({
-      ...prev,
-      slip: checkId === "noPorn" && nextVal ? false : prev.slip,
-      c: {
-        ...(prev.c || {}),
-        [checkId]: nextVal,
-      },
-    }));
-  };
-
-  const markMinimumDayDone = () => {
-    updateDay(selectedISO, (prev) => {
-      const nextC = { ...(prev.c || {}) };
-      MINIMUM_DAY_IDS.forEach((id) => {
-        nextC[id] = true;
-      });
-      return { ...prev, c: nextC };
-    });
   };
 
   const handleScheduleChange = (idx, field, val) => {
@@ -285,21 +256,6 @@ function HabitsAndTrackPage({
     (data.settings?.activeLoops || []).includes(loop.id)
   );
 
-  const visibleScoredChecks = onlyMinDay
-    ? SCORED_CHECKS.filter((item) => MINIMUM_DAY_IDS.includes(item.id))
-    : SCORED_CHECKS;
-
-  const minDayDoneCount = MINIMUM_DAY_IDS.filter(
-    (id) => dayObj.c && dayObj.c[id]
-  ).length;
-
-  const targetSteps = p.targets?.steps || 8000;
-  const targetWater = p.targets?.waterL || 3;
-  const targetScreen = p.targets?.screenH || 3;
-  const recommendedWaterByWeight = +(
-    Math.max(45, safeNum(p.weightKg, 56)) * 0.04
-  ).toFixed(1);
-
   /* Determine active schedule block index for today */
   const scheduleRows = data.schedule || DEFAULT_SCHEDULE;
   const activeScheduleIdx = useMemo(() => {
@@ -317,7 +273,7 @@ function HabitsAndTrackPage({
     <>
       <Heading
         title="Habits & daily tracker"
-        description="Track your 100-point Comeback core, custom habits, 7-day consistency matrix, habit stacks, and daily time blocks."
+        description="Track your life basics, face posture, control loops, behavioral wins, and 7-day consistency matrix."
         action={
           <div className="heading-btn-group">
             <Button
@@ -399,329 +355,6 @@ function HabitsAndTrackPage({
 
       {viewMode === "tracker" && (
         <div className="tracker-layout stack-col">
-          {/* 4-PILLAR SCORE BREAKDOWN & MINIMUM DAY ANCHOR */}
-          <Card>
-            <div className="section-head">
-              <div>
-                <div className="eyebrow">
-                  100-POINT COMEBACK SCORE ENGINE ({fmtDate(selectedISO)})
-                </div>
-                <h2>Live 4-Pillar Score Breakdown: {breakdown.total}/100 pts</h2>
-                <p>
-                  Low energy ya exam load wale din sirf 3 Minimum Day basics poore
-                  karo taaki momentum kabhi zero na ho.
-                </p>
-              </div>
-              <div className="heading-btn-group">
-                <Button
-                  kind={onlyMinDay ? "primary" : "secondary"}
-                  onClick={() => setOnlyMinDay((v) => !v)}
-                >
-                  {onlyMinDay
-                    ? "Showing 3 Minimum Basics"
-                    : `Minimum Day Filter (${minDayDoneCount}/3)`}
-                </Button>
-                {minDayDoneCount < 3 && (
-                  <Button onClick={markMinimumDayDone}>
-                    ✓ Lock 3 Minimum Basics (+19 pts)
-                  </Button>
-                )}
-              </div>
-            </div>
-
-            <div className="stats-grid jsx-29b7980a" >
-              <Stat
-                icon="🛡"
-                label="1. Clean Streak Core"
-                value={`${breakdown.coreClean}/20 pts`}
-                detail={
-                  dayObj.c?.noPorn && !dayObj.slip
-                    ? "Clean day locked in"
-                    : "Tap 'No porn today' below"
-                }
-                color="sage"
-              />
-              <Stat
-                icon="💪"
-                label="2. Workout, Steps & Fuel"
-                value={`${breakdown.fitnessBody}/32 pts`}
-                detail="Workout (12) · Steps (8) · Protein (8) · Water (4)"
-                color="peach"
-              />
-              <Stat
-                icon="☾"
-                label="3. Sleep & Screen Anchor"
-                value={`${breakdown.sleepScreen}/35 pts`}
-                detail="Wake (8) · Sun (8) · Screen (8) · Bed (6) · Phone (5)"
-                color="blue"
-              />
-              <Stat
-                icon="✦"
-                label="4. Mind, Skincare & Social"
-                value={`${breakdown.mindCare}/13 pts`}
-                detail="Skincare (5) · Brave Social (4) · Journal (4)"
-                color="lavender"
-              />
-            </div>
-
-            <div className="habit-list">
-              {visibleScoredChecks.map((item) => {
-                const checked = Boolean(dayObj.c && dayObj.c[item.id]);
-                const isMin = MINIMUM_DAY_IDS.includes(item.id);
-                return (
-                  <div
-                    className={`habit-row ${checked ? "checked" : ""}`}
-                    key={item.id}
-                  >
-                    <button
-                      type="button"
-                      className="check-circle"
-                      aria-label={`${checked ? "Uncheck" : "Complete"} ${
-                        item.title
-                      }`}
-                      aria-pressed={checked}
-                      onClick={() => toggleCoreCheck(item.id)}
-                    >
-                      {checked ? "✓" : ""}
-                    </button>
-
-                    <div className="habit-info">
-                      <strong>
-                        {dm(item.title)}{" "}
-                        {isMin && (
-                          <span
-                            className="status-pill peach-pill jsx-8cdcd88b"
-                            
-                          >
-                            Minimum Day Basic
-                          </span>
-                        )}
-                      </strong>
-                      <small>{dm(item.sub)}</small>
-                    </div>
-
-                    <span
-                      className={`status-pill ${checked ? "complete" : ""}`}
-                    >
-                      +{item.weight} pts
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </Card>
-
-          {/* Daily metrics with Quick-Increment Buttons */}
-          <Card>
-            <div className="section-head">
-              <div>
-                <div className="eyebrow">DAILY NUMBERS &amp; BIOMETRICS</div>
-                <h2>
-                  Steps, hydration, screen &amp; sleep ({fmtDate(selectedISO)})
-                </h2>
-                <p>
-                  Partial progress automatically calculates towards your
-                  100-point score. Use the quick-tap buttons for instant logging.
-                </p>
-              </div>
-              <span className="status-pill complete">
-                Weight-based water guide: ~{recommendedWaterByWeight}L/day
-              </span>
-            </div>
-
-            <div className="form-grid four-col-grid tracker-metrics">
-              <div>
-                <Field label={`Steps (Target: ${targetSteps})`}>
-                  <input
-                    type="number"
-                    min="0"
-                    step="500"
-                    value={dayObj.steps}
-                    onChange={(e) => {
-                      const v = Math.max(0, safeNum(e.target.value, 0));
-                      updateDay(selectedISO, {
-                        steps: v,
-                        c: {
-                          ...(dayObj.c || {}),
-                          steps: v >= targetSteps,
-                        },
-                      });
-                    }}
-                  />
-                </Field>
-                <div className="jsx-0d69e4b1">
-                  <Progress value={percent(dayObj.steps || 0, targetSteps)} />
-                  <div className="category-pills jsx-0d69e4b1" >
-                    {[1000, 2500, targetSteps].map((val) => (
-                      <button
-                        type="button"
-                        key={val}
-                        onClick={() => {
-                          const nextSteps =
-                            val === targetSteps
-                              ? targetSteps
-                              : Math.max(0, safeNum(dayObj.steps, 0) + val);
-                          updateDay(selectedISO, {
-                            steps: nextSteps,
-                            c: {
-                              ...(dayObj.c || {}),
-                              steps: nextSteps >= targetSteps,
-                            },
-                          });
-                        }}
-                      >
-                        {val === targetSteps ? `Hit ${targetSteps}` : `+${val}`}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <Field label={`Water in Litres (Target: ${targetWater}L)`}>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.25"
-                    value={dayObj.waterL}
-                    onChange={(e) => {
-                      const v = Math.max(0, safeNum(e.target.value, 0));
-                      updateDay(selectedISO, {
-                        waterL: v,
-                        c: {
-                          ...(dayObj.c || {}),
-                          water: v >= targetWater,
-                        },
-                      });
-                    }}
-                  />
-                </Field>
-                <div className="jsx-0d69e4b1">
-                  <Progress value={percent(dayObj.waterL || 0, targetWater)} />
-                  <div className="category-pills jsx-0d69e4b1" >
-                    {[
-                      [0.25, "+250ml"],
-                      [0.5, "+500ml"],
-                      [targetWater, `Hit ${targetWater}L`],
-                    ].map(([amt, lbl]) => (
-                      <button
-                        type="button"
-                        key={lbl}
-                        onClick={() => {
-                          const nextW =
-                            amt === targetWater
-                              ? targetWater
-                              : +(safeNum(dayObj.waterL, 0) + Number(amt)).toFixed(
-                                  2
-                                );
-                          updateDay(selectedISO, {
-                            waterL: nextW,
-                            c: {
-                              ...(dayObj.c || {}),
-                              water: nextW >= targetWater,
-                            },
-                          });
-                        }}
-                      >
-                        {lbl}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <Field
-                  label={`Recreational Screen (Limit ≤ ${targetScreen}h)`}
-                >
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.5"
-                    value={dayObj.screenH}
-                    onChange={(e) => {
-                      const v = Math.max(0, safeNum(e.target.value, 0));
-                      updateDay(selectedISO, {
-                        screenH: v,
-                        c: {
-                          ...(dayObj.c || {}),
-                          screenUnderLimit: v > 0 && v <= targetScreen,
-                        },
-                      });
-                    }}
-                  />
-                </Field>
-                <div className="jsx-0d69e4b1">
-                  <Progress
-                    value={
-                      dayObj.screenH > 0
-                        ? Math.min(100, percent(dayObj.screenH, targetScreen))
-                        : 0
-                    }
-                  />
-                  <div className="category-pills jsx-0d69e4b1" >
-                    {[1, 2, targetScreen].map((hr) => (
-                      <button
-                        type="button"
-                        key={hr}
-                        onClick={() =>
-                          updateDay(selectedISO, {
-                            screenH: hr,
-                            c: {
-                              ...(dayObj.c || {}),
-                              screenUnderLimit: hr <= targetScreen,
-                            },
-                          })
-                        }
-                      >
-                        {hr}h logged
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <Field label="Last Night's Sleep (Hours)">
-                  <input
-                    type="number"
-                    min="0"
-                    max="16"
-                    step="0.5"
-                    value={dayObj.sleepH}
-                    onChange={(e) =>
-                      updateDay(selectedISO, {
-                        sleepH: Math.max(0, safeNum(e.target.value, 0)),
-                      })
-                    }
-                  />
-                </Field>
-                <div className="jsx-0d69e4b1">
-                  <Progress value={percent(dayObj.sleepH || 0, 8)} />
-                  <div className="category-pills jsx-0d69e4b1" >
-                    {[6.5, 7.5, 8].map((sh) => (
-                      <button
-                        type="button"
-                        key={sh}
-                        onClick={() =>
-                          updateDay(selectedISO, {
-                            sleepH: sh,
-                            c: {
-                              ...(dayObj.c || {}),
-                              wakeOnTime: sh >= 7 || Boolean(dayObj.c?.wakeOnTime),
-                            },
-                          })
-                        }
-                      >
-                        {sh}h
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Card>
-
           {/* Two main columns */}
           <div className="tracker-sections">
             {/* LEFT COLUMN */}
@@ -966,8 +599,6 @@ function HabitsAndTrackPage({
         </div>
       )}
 
-      {/* ================= CUSTOM HABITS & STACKS TAB ================= */}
-
       {/* ================= 7-DAY CONSISTENCY MATRIX TAB ================= */}
 
       {viewMode === "matrix" && (
@@ -1047,7 +678,6 @@ function HabitsAndTrackPage({
                                 className={`jsx-2d92f77e ${`check-circle ${
                                   isChecked ? "checked" : ""
                                 }`}`}
-                                
                                 onClick={() => {
                                   updateDay(d.iso, (prev) => ({
                                     ...prev,
@@ -1076,10 +706,6 @@ function HabitsAndTrackPage({
           </Card>
         </div>
       )}
-
-      {/* ================= SCHEDULE TAB ================= */}
-
-     
     </>
   );
 }
