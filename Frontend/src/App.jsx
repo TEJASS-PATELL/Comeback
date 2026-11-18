@@ -1246,10 +1246,7 @@ export default function App() {
           </div>
 
           <footer className="app-footer">
-            <span>
-              General info, not medical advice · Tele-MANAS 14416 · Emergency
-              112
-            </span>
+            
             <span
               className={`cloud-status${cloudStatus === "error" ? " cloud-status-error" : ""}`}
               role="status"
@@ -1266,17 +1263,6 @@ export default function App() {
               >
                 Quick Jump (Ctrl+K)
               </button>
-              <button type="button" onClick={exportData}>
-                Export
-              </button>
-              <label className="import-label">
-                Import
-                <input
-                  type="file"
-                  accept="application/json,.json"
-                  onChange={(e) => importData(e.target.files?.[0])}
-                />
-              </label>
               <button type="button" className="danger-text" onClick={resetAll}>
                 Clear data
               </button>
